@@ -2,15 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#eee9e0">
 <title>Warta Household — Financial Overview</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-:root{--bg:#f5f2ec;--bg-header:#eee9e0;--bg-card:#ffffff;--bg-inset:#f0ece4;--border:#d8d2c6;--border-light:#e8e3da;--border-strong:#c8c2b6;--text:#3a3530;--text-mid:#6a6358;--text-muted:#8a8275;--text-hint:#aaa49a;--blue:#4a7a9a;--blue-bg:#f0f5f8;--blue-border:#c0d0dc;--green:#5a8a6a;--green-bg:#f0f6f2;--green-border:#c0d8c8;--red:#b86e5e;--red-bg:#fdf6f4;--red-border:#e8d0ca;--amber:#9a7a4a;--amber-bg:#faf5eb;--amber-border:#e0d4be;--purple:#7a6a90;--purple-bg:#f4f0f8;--purple-border:#d4cce0;--cyan:#4a8a9a;--cyan-bg:#f0f6f8;--cyan-border:#c0d4dc;--orange:#b87a4a;--orange-bg:#faf4ee;--orange-border:#e0d0c0;--font-display:'Source Serif 4',Georgia,serif;--font-body:'DM Sans',system-ui,sans-serif;--font-mono:'JetBrains Mono',monospace}
+:root{--bg:#f5f2ec;--bg-header:#eee9e0;--bg-card:#ffffff;--bg-inset:#f0ece4;--border:#d8d2c6;--border-light:#e8e3da;--border-strong:#c8c2b6;--text:#3a3530;--text-mid:#6a6358;--text-muted:#8a8275;--text-hint:#aaa49a;--blue:#4a7a9a;--blue-bg:#f0f5f8;--blue-border:#c0d0dc;--green:#5a8a6a;--green-bg:#f0f6f2;--green-border:#c0d8c8;--red:#b86e5e;--red-bg:#fdf6f4;--red-border:#e8d0ca;--amber:#9a7a4a;--amber-bg:#faf5eb;--amber-border:#e0d4be;--purple:#7a6a90;--purple-bg:#f4f0f8;--purple-border:#d4cce0;--cyan:#4a8a9a;--cyan-bg:#f0f6f8;--cyan-border:#c0d4dc;--orange:#b87a4a;--orange-bg:#faf4ee;--orange-border:#e0d0c0;--font-display:'Source Serif 4',Georgia,serif;--font-body:'DM Sans',system-ui,sans-serif;--font-mono:'JetBrains Mono',monospace;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);--safe-left:env(safe-area-inset-left,0px);--safe-right:env(safe-area-inset-right,0px)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:13px;line-height:1.6;-webkit-font-smoothing:antialiased}
-.header{background:var(--bg-header);border-bottom:1px solid var(--border);padding:18px 40px}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:13px;line-height:1.6;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;padding-top:var(--safe-top);padding-bottom:var(--safe-bottom);overflow-x:hidden}
+.header{background:var(--bg-header);border-bottom:1px solid var(--border);padding:18px 40px;padding-left:calc(40px + var(--safe-left));padding-right:calc(40px + var(--safe-right))}
 .header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .header h1{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text)}
 .header .sub{font-size:12px;color:var(--text-muted);margin-top:2px}
@@ -18,14 +22,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .header-meta .live{display:flex;align-items:center;gap:6px}
 .header-meta .live::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green)}
 .nav{background:var(--bg-header);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-.nav-inner{max-width:1400px;margin:0 auto;display:flex;padding:0 40px;overflow-x:auto}
-.nav-btn{position:relative;padding:11px 18px;border:none;background:none;cursor:pointer;font-family:var(--font-body);font-size:12px;color:var(--text-muted);transition:color .2s;white-space:nowrap}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;padding:0 40px;padding-left:calc(40px + var(--safe-left));overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-btn{position:relative;padding:11px 18px;border:none;background:none;cursor:pointer;font-family:var(--font-body);font-size:12px;color:var(--text-muted);transition:color .2s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
 .nav-btn:hover{color:var(--text-mid)}
 .nav-btn.active{color:var(--text);font-weight:500}
 .nav-btn.active::after{content:'';position:absolute;bottom:0;left:18px;right:18px;height:2px;background:var(--green);border-radius:1px}
 .nav-badge{margin-left:5px;padding:1px 6px;font-size:10px;background:var(--red-bg);color:var(--red);border-radius:8px;font-weight:500}
 .nav-badge-new{margin-left:5px;padding:1px 6px;font-size:10px;background:var(--green-bg);color:var(--green);border-radius:8px;font-weight:500}
-.content{max-width:1400px;margin:0 auto;padding:28px 40px 80px}
+.content{max-width:1400px;margin:0 auto;padding:28px 40px 80px;padding-left:calc(40px + var(--safe-left));padding-right:calc(40px + var(--safe-right))}
 .tab-panel{display:none}.tab-panel.active{display:block}
 .card{background:var(--bg-card);border:.5px solid var(--border);border-radius:8px}
 .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
@@ -37,7 +42,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .sec-text{font-size:12px;font-weight:500;color:var(--text-muted)}
 .sec::after{content:'';flex:1;height:1px;background:var(--border-light)}
 .exp{margin-bottom:6px}
-.exp-head{width:100%;display:flex;align-items:center;gap:14px;padding:14px 20px;background:var(--bg-card);border:.5px solid var(--border);border-radius:8px;color:var(--text);cursor:pointer;font-family:var(--font-body);text-align:left;transition:background .15s}
+.exp-head{width:100%;display:flex;align-items:center;gap:14px;padding:14px 20px;background:var(--bg-card);border:.5px solid var(--border);border-radius:8px;color:var(--text);cursor:pointer;font-family:var(--font-body);text-align:left;transition:background .15s;-webkit-tap-highlight-color:transparent}
 .exp.open .exp-head{border-radius:8px 8px 0 0}
 .exp-head:hover{background:var(--bg-inset)}
 .exp-head .et{font-size:13px;font-weight:500}
@@ -55,9 +60,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .alrt.w{background:var(--amber-bg);border:.5px solid var(--amber-border);border-left:3px solid var(--amber)}.alrt.w .at{color:var(--amber)}
 .alrt.i{background:var(--blue-bg);border:.5px solid var(--blue-border);border-left:3px solid var(--blue)}.alrt.i .at{color:var(--blue)}
 .alrt.s{background:var(--green-bg);border:.5px solid var(--green-border);border-left:3px solid var(--green)}.alrt.s .at{color:var(--green)}
-.tw{overflow-x:auto}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{width:100%;border-collapse:collapse;font-size:12px}
-th{padding:10px 14px;text-align:left;font-size:11px;font-weight:500;color:var(--text-muted);border-bottom:1px solid var(--border);background:var(--bg-inset)}
+th{padding:10px 14px;text-align:left;font-size:11px;font-weight:500;color:var(--text-muted);border-bottom:1px solid var(--border);background:var(--bg-inset);position:sticky;top:0;z-index:1}
 td{padding:10px 14px;border-bottom:1px solid var(--border-light)}
 tr:hover td{background:var(--bg-inset)}
 .badge{display:inline-flex;padding:2px 8px;font-size:10px;font-weight:500;border-radius:4px}
@@ -70,7 +75,7 @@ tr:hover td{background:var(--bg-inset)}
 .sld{margin-bottom:16px}
 .sld label{font-size:12px;color:var(--text-mid);display:block;margin-bottom:8px}
 .sld input[type=range]{width:100%;height:4px;cursor:pointer;background:var(--border);border-radius:2px;-webkit-appearance:none;appearance:none}
-.sld input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--text);cursor:pointer}
+.sld input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--text);cursor:pointer}
 .sld-range{display:flex;justify-content:space-between;font-size:11px;color:var(--text-hint);margin-top:4px}
 .flow-r{padding:5px 0;font-size:12px;color:var(--text-mid)}
 .summary{padding:24px;background:var(--bg-card);border:.5px solid var(--border);border-radius:8px;margin-top:28px}
@@ -84,7 +89,7 @@ tr:hover td{background:var(--bg-inset)}
 .tl-phase{font-size:12px;font-weight:500}
 .tl-src{font-size:11px;color:var(--text-mid);margin-top:3px}
 .tl-note{font-size:11px;color:var(--text-muted);margin-top:3px}
-.pen-btn{padding:6px 14px;border:.5px solid var(--border);background:var(--bg-card);color:var(--text-muted);cursor:pointer;font-family:var(--font-body);font-size:11px;transition:all .15s;border-radius:6px}
+.pen-btn{padding:6px 14px;border:.5px solid var(--border);background:var(--bg-card);color:var(--text-muted);cursor:pointer;font-family:var(--font-body);font-size:11px;transition:all .15s;border-radius:6px;-webkit-tap-highlight-color:transparent}
 .pen-btn:hover{background:var(--bg-inset);color:var(--text)}
 .pen-btn.active{background:var(--cyan-bg);color:var(--cyan);border-color:var(--cyan-border)}
 .prog-bar{height:6px;background:var(--bg-inset);border:.5px solid var(--border);border-radius:3px;margin:10px 0}
@@ -97,7 +102,7 @@ tr:hover td{background:var(--bg-inset)}
 .cf-row:last-child{border-bottom:none}
 .cf-check{color:var(--green);font-weight:600;font-size:14px}
 .cf-src{font-size:10px;color:var(--text-muted);font-family:var(--font-mono);white-space:nowrap}
-.chk-item{display:flex;align-items:flex-start;gap:12px;padding:10px 18px;border-bottom:1px solid var(--border-light);font-size:12px;cursor:pointer;transition:opacity .2s}
+.chk-item{display:flex;align-items:flex-start;gap:12px;padding:10px 18px;border-bottom:1px solid var(--border-light);font-size:12px;cursor:pointer;transition:opacity .2s;-webkit-tap-highlight-color:transparent}
 .chk-item:hover{background:var(--bg-inset)}
 .chk-item.done{opacity:.35;text-decoration:line-through}
 .chk-box{width:16px;height:16px;border:1px solid var(--border-strong);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--green);flex-shrink:0;margin-top:1px}
@@ -108,38 +113,83 @@ tr:hover td{background:var(--bg-inset)}
 .bene-icon{font-size:14px;width:20px;text-align:center}
 .bene-name{flex:1;color:var(--text-mid)}
 .bene-val{font-family:var(--font-mono);color:var(--text-muted);font-size:11px}
-.footer{text-align:center;padding:24px;font-size:11px;color:var(--text-hint);border-top:1px solid var(--border-light)}
-@media(max-width:900px){.stat-grid{grid-template-columns:repeat(2,1fr)}.header{padding:14px 20px}.content{padding:20px 20px 60px}.nav-inner{padding:0 20px}}
+.footer{text-align:center;padding:24px;font-size:11px;color:var(--text-hint);border-top:1px solid var(--border-light);padding-bottom:calc(24px + var(--safe-bottom))}
+
+/* ═══ MOBILE iOS OPTIMIZATION ═══ */
+@media(max-width:768px){
+  .header{padding:14px 16px}
+  .header h1{font-size:17px}
+  .header .sub{font-size:11px}
+  .header-meta{gap:12px;font-size:10px}
+  .nav-inner{padding:0 8px;gap:0}
+  .nav-btn{padding:10px 12px;font-size:11px}
+  .content{padding:16px 14px 80px}
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:20px}
+  .stat{padding:14px 14px}
+  .stat .s-val{font-size:22px}
+  .stat .s-label{font-size:10px}
+  .stat .s-sub{font-size:10px}
+  .sec{margin:28px 0 12px}
+  .charts-row{gap:20px;flex-direction:column;align-items:center}
+  .chart-panel canvas{width:220px!important;height:220px!important}
+  .alrt{padding:12px 14px}
+  .alrt .at{font-size:11px}
+  .alrt .ad{font-size:11px;line-height:1.6}
+  .exp-head{padding:12px 14px}
+  .exp-body{padding:0 14px 14px}
+  table{font-size:11px}
+  th,td{padding:8px 10px}
+  .card{border-radius:6px}
+  .summary{padding:16px}
+  .summary p{font-size:12px}
+  .tl{padding-left:26px}
+  .tl-card{padding:12px 14px}
+  .pen-btn{padding:8px 12px;font-size:10px}
+  .qcard{padding:12px 14px}
+  .cf-row{padding:8px 14px;font-size:11px}
+  .bene-row{padding:8px 14px;font-size:11px}
+  .chk-item{padding:10px 14px;font-size:11px}
+  .sld input[type=range]::-webkit-slider-thumb{width:28px;height:28px}
+  .flow-r{font-size:11px}
+  .phase-row{padding:10px 14px}
+}
+@media(max-width:390px){
+  .header{padding:12px 12px}
+  .content{padding:12px 10px 80px}
+  .stat-grid{gap:6px}
+  .stat{padding:12px 10px}
+  .stat .s-val{font-size:20px}
+  .nav-btn{padding:9px 10px;font-size:10px}
+}
 </style></head><body>
 
-<div class="header"><div class="header-inner"><div><h1>Warta Household</h1><div class="sub">Financial overview · v8.0 — Empower reconciled</div></div><div class="header-meta"><div class="live">March 31, 2026</div><div>NW $1.86M</div><div>BTC 7.931</div></div></div></div>
+<div class="header"><div class="header-inner"><div><h1>Warta Household</h1><div class="sub">Financial overview · v8.0</div></div><div class="header-meta"><div class="live">April 2026</div><div>NW $1.86M</div><div>BTC 7.931</div></div></div></div>
 
 <div class="nav"><div class="nav-inner">
 <button class="nav-btn active" data-tab="overview">Portfolio</button>
 <button class="nav-btn" data-tab="tax">Tax & Roth<span class="nav-badge-new">upd</span></button>
-<button class="nav-btn" data-tab="retirement">Retirement</button>
-<button class="nav-btn" data-tab="cashflow">Cash flow<span class="nav-badge-new">upd</span></button>
-<button class="nav-btn" data-tab="risk">Risk<span class="nav-badge">5</span></button>
-<button class="nav-btn" data-tab="actions">Actions</button>
-<button class="nav-btn" data-tab="tracker">Tracker</button>
+<button class="nav-btn" data-tab="retirement">Retirement<span class="nav-badge-new">upd</span></button>
+<button class="nav-btn" data-tab="cashflow">Cash flow</button>
+<button class="nav-btn" data-tab="risk">Risk<span class="nav-badge-new">upd</span></button>
+<button class="nav-btn" data-tab="actions">Actions<span class="nav-badge-new">upd</span></button>
+<button class="nav-btn" data-tab="tracker">Tracker<span class="nav-badge">5</span></button>
 </div></div>
 
 <div class="content">
 
-<!-- ═══════════ PORTFOLIO TAB ═══════════ -->
+<!-- ═══════════ TAB: PORTFOLIO ═══════════ -->
 <div id="tab-overview" class="tab-panel active">
 <div class="stat-grid">
 <div class="stat"><div class="s-label">Household investable</div><div class="s-val" style="color:var(--blue)">$1.52M</div><div class="s-sub">Excl. home equity & pension</div></div>
-<div class="stat"><div class="s-label">True net worth</div><div class="s-val" style="color:var(--green)">$1.86M</div><div class="s-sub">Empower 3/31 less $273K loans</div></div>
+<div class="stat"><div class="s-label">Net worth</div><div class="s-val" style="color:var(--green)">$1.86M</div><div class="s-sub">Mar 31, 2026 · Empower</div></div>
 <div class="stat"><div class="s-label">Home equity</div><div class="s-val" style="color:var(--purple)">$608K</div><div class="s-sub">$1.24M − $636K @ 3.25%</div></div>
-<div class="stat"><div class="s-label">Annual savings rate</div><div class="s-val" style="color:var(--amber)">$97.9K</div><div class="s-sub">~24.5% of ~$399K baseline</div></div>
+<div class="stat"><div class="s-label">Annual savings rate</div><div class="s-val" style="color:var(--amber)">$97.9K</div><div class="s-sub">24.3% of $399K baseline</div></div>
 </div>
 
 <div class="sec"><span class="sec-text">Asset allocation</span></div>
 <div class="charts-row">
 <div class="chart-panel"><div class="chart-label">Household — by asset class</div><canvas id="c-ah" width="260" height="260"></canvas><div class="chart-legend" id="l-ah"></div></div>
-<div class="chart-panel"><div class="chart-label">Jon — by tax treatment</div><canvas id="c-tj" width="260" height="260"></canvas><div class="chart-legend" id="l-tj"></div></div>
-<div class="chart-panel"><div class="chart-label">Lenora — by tax treatment</div><canvas id="c-tl" width="260" height="260"></canvas><div class="chart-legend" id="l-tl"></div></div>
+<div class="chart-panel"><div class="chart-label">Jon — by asset class</div><canvas id="c-aj" width="260" height="260"></canvas><div class="chart-legend" id="l-aj"></div></div>
 </div>
 
 <div class="sec"><span class="sec-text">Fund overlap</span></div>
@@ -150,21 +200,23 @@ tr:hover td{background:var(--bg-inset)}
 <div class="card tw"><table><thead><tr><th>Account</th><th>Custodian</th><th>Value</th><th>Tax</th><th>Holdings</th></tr></thead><tbody id="acct-table"></tbody></table></div>
 
 <div class="exp" id="x-geo"><div class="card" style="border-radius:8px"><button class="exp-head" onclick="xp('x-geo')"><div style="flex:1"><div class="et">Geographic & style exposure</div><div class="es">Where your equity dollars actually go</div></div><span class="chev">▸</span></button><div class="exp-body"><div style="margin-top:14px">
-<div class="alrt w"><div><div class="at">Jon 100% VWIGX for international</div><div class="ad">$146K in active growth fund. Lenora's $74K intl is more diversified (VEA + VWO + VWIGX). Household intl = $219K (13%).</div></div></div>
+<div class="alrt w"><div><div class="at">Jon 100% VWIGX for international</div><div class="ad">$146K in active growth fund. Lenora's $74K intl is much more diversified (VEA + VWO + VWIGX). Household intl = $219K (13%).</div></div></div>
 <div class="alrt i"><div><div class="at">Lenora's Betterment Roth: 70% emerging markets</div><div class="ad">$12K of $16K in VWO. High single-region concentration risk.</div></div></div>
 <div class="alrt i"><div><div class="at">Bonds: 1.3% of household ($21.7K)</div><div class="ad">All in Lenora's Betterment Trad IRA. Jon holds zero bonds — pension serves as bond substitute.</div></div></div>
-<div class="alrt w"><div><div class="at">Betterment advisory fee: 0.25%/yr (~$354/yr)</div><div class="ad">~$30/mo across Lenora's $142K. Consider self-directing at Vanguard.</div></div></div>
+<div class="alrt w"><div><div class="at">Betterment advisory fee: 0.25%/yr ($262/yr actual)</div><div class="ad">~$31/mo across Lenora's $142K. Consider self-directing at Vanguard.</div></div></div>
 </div></div></div></div>
 </div>
 
-<!-- ═══════════ TAX & ROTH TAB ═══════════ -->
+<!-- ═══════════ TAB: TAX & ROTH ═══════════ -->
 <div id="tab-tax" class="tab-panel">
-<div class="alrt c"><div><div class="at">The 2.6% Roth problem</div><div class="ad">Only <strong>$39,161 (2.6%)</strong> household investable is in Roth — Jon $20,851 + Lenora $18,311. Far too small for a 13-year bridge (age 46–59½).</div></div></div>
-<div class="alrt s"><div><div class="at">Roth pipeline now active: ~$52K/yr flowing</div><div class="ad">TSA 9% Roth (~$24.2K/yr) + Plan B 10% after-tax (~$26.9K/yr → Roth at separation) + Lenora 1% Roth 401(k) (~$1.3K/yr). All effective 04/10/2026. 9 years = ~$470K Roth-destined.</div></div></div>
+<div class="alrt c"><div><div class="at">The 2.6% Roth problem</div><div class="ad">Only <strong>$39,162 (2.6%)</strong> household investable is in Roth — Jon $20,851 + Lenora $18,311. Far too small for a 13-year bridge (age 46–59½).</div></div></div>
+<div class="alrt s"><div><div class="at">Roth pipeline now active: ~$52K/yr flowing</div><div class="ad">TSA 9% Roth (~$24.2K/yr) + Plan B 10% after-tax (~$26.9K/yr → Roth at separation) + Lenora 1% Roth 401k (~$1.3K). All effective 04/10/2026. 9 years = ~$468K Roth-destined.</div></div></div>
 
-<div class="sec"><span class="sec-text">Tax treatment split — Empower 3/31/2026</span></div>
+<div class="sec"><span class="sec-text">Tax treatment split</span></div>
 <div class="charts-row">
-<div class="chart-panel"><div class="chart-label">Household</div><canvas id="c-th" width="260" height="260"></canvas><div class="chart-legend" id="l-th"></div></div>
+<div class="chart-panel"><div class="chart-label">Jon</div><canvas id="c-tj" width="240" height="240"></canvas><div class="chart-legend" id="l-tj"></div></div>
+<div class="chart-panel"><div class="chart-label">Lenora</div><canvas id="c-tl" width="240" height="240"></canvas><div class="chart-legend" id="l-tl"></div></div>
+<div class="chart-panel"><div class="chart-label">Household</div><canvas id="c-th" width="240" height="240"></canvas><div class="chart-legend" id="l-th"></div></div>
 </div>
 
 <div class="sec"><span class="sec-text">2024 tax return</span></div>
@@ -175,6 +227,14 @@ tr:hover td{background:var(--bg-inset)}
 <div class="stat"><div class="s-label">Capital loss C/F</div><div class="s-val" style="font-size:22px;color:var(--green)">$23,229</div><div class="s-sub">~8 years at $3K/yr</div></div>
 </div>
 <div class="card" style="padding:16px 20px;margin-bottom:6px"><div style="font-size:12px;color:var(--text-mid);line-height:1.75"><strong style="color:var(--text)">Itemized:</strong> Mortgage $31,915 + SALT $10K + Charitable $482 = <strong>$41,915</strong> · <strong style="color:var(--text)">Tax:</strong> Federal $49,293 + CA $14,985 = $64,278</div></div>
+
+<div class="sec"><span class="sec-text">2025 tax return <span class="new-tag">in progress</span></span></div>
+<div class="stat-grid">
+<div class="stat"><div class="s-label">Est. AGI</div><div class="s-val" style="font-size:20px;color:var(--blue)">~$461K</div><div class="s-sub">Incl. ~$100K poker</div></div>
+<div class="stat"><div class="s-label">Itemized ded.</div><div class="s-val" style="font-size:20px;color:var(--green)">~$90K</div><div class="s-sub">Mortgage + gambling loss</div></div>
+<div class="stat"><div class="s-label">Filing</div><div class="s-val" style="font-size:20px;color:var(--cyan)">MFJ</div><div class="s-sub">No IBR benefit yet</div></div>
+<div class="stat"><div class="s-label">Blocking on</div><div class="s-val" style="font-size:18px;color:var(--red)">Ignition</div><div class="s-sub">Poker loss docs needed</div></div>
+</div>
 
 <div class="sec"><span class="sec-text">Roth pipeline — all channels</span></div>
 <div class="card tw"><table><thead><tr><th>Channel</th><th>Owner</th><th>Annual</th><th>Treatment</th><th>Status</th></tr></thead><tbody>
@@ -189,13 +249,16 @@ tr:hover td{background:var(--bg-inset)}
 <div class="sec"><span class="sec-text">Mega backdoor: Plan B</span></div>
 <div class="exp open" id="x-pb"><div class="card" style="border-radius:8px"><button class="exp-head" onclick="xp('x-pb')"><div style="flex:1"><div class="et">Plan B after-tax rollover <span class="done-tag">Active</span></div><div class="es">~$26.9K/yr to Roth at separation</div></div><span class="chev">▸</span></button><div class="exp-body" style="display:block"><div style="margin-top:14px;color:var(--text-mid)">
 <p>Plan B: <strong style="color:var(--green)">after-tax employee</strong> (up to 10%) + <strong style="color:var(--red)">pre-tax employer</strong> (5%).</p>
-<div style="margin:10px 0"><div class="flow-r"><span style="color:var(--green)">→</span> <strong style="color:var(--green)">After-tax</strong> → Roth IRA (tax-free)</div><div class="flow-r"><span style="color:var(--amber)">→</span> <strong style="color:var(--amber)">Gains</strong> → Trad IRA (or convert)</div><div class="flow-r"><span style="color:var(--red)">→</span> <strong style="color:var(--red)">Employer 5%</strong> → Trad IRA</div></div>
+<div style="margin:10px 0">
+<div class="flow-r"><span style="color:var(--green)">→</span> <strong style="color:var(--green)">After-tax</strong> → Roth IRA (tax-free)</div>
+<div class="flow-r"><span style="color:var(--amber)">→</span> <strong style="color:var(--amber)">Gains</strong> → Trad IRA (or convert)</div>
+<div class="flow-r"><span style="color:var(--red)">→</span> <strong style="color:var(--red)">Employer 5%</strong> → Trad IRA</div>
+</div>
 <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:0">
-<div class="stat"><div class="s-label">Current balance</div><div class="s-val" style="font-size:20px;color:var(--cyan)">$3,900</div><div class="s-sub">After-tax portion confirmed</div></div>
+<div class="stat"><div class="s-label">Current balance</div><div class="s-val" style="font-size:20px;color:var(--cyan)">$3,900</div><div class="s-sub">Confirmed Vanguard call</div></div>
 <div class="stat"><div class="s-label">Annual flow</div><div class="s-val" style="font-size:20px;color:var(--green)">$26,900</div><div class="s-sub">10% eff 04/10/2026</div></div>
 <div class="stat"><div class="s-label">By 2035 (9yr)</div><div class="s-val" style="font-size:20px;color:var(--green)">~$246K</div><div class="s-sub">+ growth</div></div>
-</div>
-</div></div></div></div>
+</div></div></div></div></div>
 
 <div class="sec"><span class="sec-text">Roth conversion calculator</span></div>
 <div class="card" style="padding:24px">
@@ -205,11 +268,11 @@ tr:hover td{background:var(--bg-inset)}
 </div>
 </div>
 
-<!-- ═══════════ RETIREMENT TAB ═══════════ -->
+<!-- ═══════════ TAB: RETIREMENT ═══════════ -->
 <div id="tab-retirement" class="tab-panel">
 <div class="stat-grid">
-<div class="stat"><div class="s-label">FI target</div><div class="s-val" style="color:var(--cyan)">2035</div><div class="s-sub">Jon age 46 · ~21yr service</div></div>
-<div class="stat"><div class="s-label">Pension (10.95yr credited)</div><div class="s-val" style="font-size:22px;color:var(--amber)">$3,084/mo</div><div class="s-sub">Total Rewards at 65</div></div>
+<div class="stat"><div class="s-label">FI target</div><div class="s-val" style="color:var(--cyan)">2035</div><div class="s-sub">Jon age 46 · 21yr service</div></div>
+<div class="stat"><div class="s-label">Pension (12yr)</div><div class="s-val" style="font-size:22px;color:var(--amber)">$3,344/mo</div><div class="s-sub">At 65 · lump $492K</div></div>
 <div class="stat"><div class="s-label">SS at 67 (adj)</div><div class="s-val" style="font-size:22px;color:var(--green)">~$3,200/mo</div><div class="s-sub">20-30% haircut</div></div>
 <div class="stat"><div class="s-label">Health gap</div><div class="s-val" style="color:var(--red)">19 yrs</div><div class="s-sub">Age 46-65</div></div>
 </div>
@@ -230,14 +293,14 @@ tr:hover td{background:var(--bg-inset)}
 </tbody></table></div>
 <div class="card" style="padding:14px 18px;margin-top:4px;font-size:12px;color:var(--text-mid);line-height:1.7"><strong style="color:var(--text)">Why adjusted is lower:</strong> SSA assumes $176K/yr. Retiring at 46 = 7-8 zero years in 35-year calc. <strong style="color:var(--amber)">Lenora's SS statement still needed.</strong></div>
 
-<div class="sec"><span class="sec-text">Student loans — Lenora</span></div>
+<div class="sec"><span class="sec-text">Student loans — Lenora <span class="new-tag">upd</span></span></div>
 <div class="stat-grid">
 <div class="stat"><div class="s-label">Balance</div><div class="s-val" style="font-size:20px;color:var(--red)">$273K</div><div class="s-sub">Confirmed Empower</div></div>
-<div class="stat"><div class="s-label">Track</div><div class="s-val" style="font-size:20px;color:var(--amber)">20yr IDR</div><div class="s-sub">NOT PSLF</div></div>
-<div class="stat"><div class="s-label">Status</div><div class="s-val" style="font-size:20px;color:var(--cyan)">Forbearance</div><div class="s-sub">Intentional</div></div>
-<div class="stat"><div class="s-label">Tax bomb</div><div class="s-val" style="font-size:20px;color:var(--red)">$65-80K+</div><div class="s-sub">IDR = taxable</div></div>
+<div class="stat"><div class="s-label">Track</div><div class="s-val" style="font-size:20px;color:var(--amber)">IBR</div><div class="s-sub">SAVE ended → IBR</div></div>
+<div class="stat"><div class="s-label">Payments made</div><div class="s-val" style="font-size:20px;color:var(--cyan)">~80</div><div class="s-sub">160 remaining</div></div>
+<div class="stat"><div class="s-label">Tax bomb</div><div class="s-val" style="font-size:20px;color:var(--red)">$35-48K</div><div class="s-sub">At retirement AGI</div></div>
 </div>
-<div class="card" style="padding:14px 18px;font-size:12px;color:var(--text-mid);line-height:1.8">23 prior PSLF payments (prev employers). 217 remaining for IDR. 10 loans on MOHELA (5.4-7.9%). ARPA expired 12/31/2025. <strong style="color:var(--amber)">Net at forgiveness: +$190-220K after tax.</strong></div>
+<div class="card" style="padding:14px 18px;font-size:12px;color:var(--text-mid);line-height:1.8">SAVE plan terminated (8th Circuit, 3/10/2026). Switching to IBR — preserves 20-yr timeline. Forgiveness ~2039-2040 (Lenora age 47-48). <strong style="color:var(--green)">MFS saves ~$22K/yr net</strong> when IBR active. Post-retirement: $0 payments when AGI &lt; $49.5K. <strong style="color:var(--amber)">Net at forgiveness: +$225-238K after tax.</strong></div>
 
 <div class="sec"><span class="sec-text">Health gap (46-65)</span></div>
 <div class="exp" id="x-health"><div class="card" style="border-radius:8px"><button class="exp-head" onclick="xp('x-health')"><div style="flex:1"><div class="et">19-year coverage gap: $456K-$684K</div><div class="es">ACA subsidy strategy — AGI under 300% FPL</div></div><span class="chev">▸</span></button><div class="exp-body"><div style="margin-top:14px">
@@ -260,26 +323,26 @@ tr:hover td{background:var(--bg-inset)}
 </div>
 </div>
 
-<!-- ═══════════ CASH FLOW TAB ═══════════ -->
+<!-- ═══════════ TAB: CASH FLOW ═══════════ -->
 <div id="tab-cashflow" class="tab-panel">
 <div class="stat-grid">
 <div class="stat"><div class="s-label">Household gross (2026e)</div><div class="s-val" style="font-size:20px;color:var(--blue)">~$439K</div><div class="s-sub">Jon $309K + Lenora $130K</div></div>
-<div class="stat"><div class="s-label">Annual spend</div><div class="s-val" style="font-size:20px;color:var(--amber)">~$117K</div><div class="s-sub">$109K tracked + $8K gap</div></div>
+<div class="stat"><div class="s-label">Annual spend</div><div class="s-val" style="font-size:20px;color:var(--amber)">~$117K</div><div class="s-sub">$107K tracked + $10K gap</div></div>
 <div class="stat"><div class="s-label">Retirement savings</div><div class="s-val" style="font-size:20px;color:var(--green)">$97.9K/yr</div><div class="s-sub">Jon $72.5K + Lenora $25.5K</div></div>
-<div class="stat"><div class="s-label">⚠️ Emergency fund</div><div class="s-val" style="font-size:20px;color:var(--red)">$12,100</div><div class="s-sub">Jon $3.4K + Lenora $8.7K</div></div>
+<div class="stat"><div class="s-label">E-fund ⚠️</div><div class="s-val" style="font-size:20px;color:var(--red)">$3,444</div><div class="s-sub">Depleted · was $19.7K</div></div>
 </div>
 
 <div class="sec"><span class="sec-text">Household bills</span></div>
 <div class="card tw"><table><thead><tr><th>Category</th><th style="text-align:right">Monthly</th><th style="text-align:right">Annual</th><th>Source</th></tr></thead><tbody id="bills-table"></tbody></table></div>
 
-<div class="sec"><span class="sec-text">Jon spending trend (2025-Q1 2026)</span></div>
+<div class="sec"><span class="sec-text">Credit card spending (Jul 2025 – Jan 2026)</span></div>
 <div class="card" style="padding:20px"><canvas id="c-spend" height="220"></canvas></div>
 
-<div class="exp" id="x-spend-cat"><div class="card" style="border-radius:8px"><button class="exp-head" onclick="xp('x-spend-cat')"><div style="flex:1"><div class="et">Jon spending by category — 15 months</div><div class="es">2025 full year + Q1 2026</div></div><span class="chev">▸</span></button><div class="exp-body"><div style="margin-top:14px"><div class="tw"><table><thead><tr><th>Category</th><th style="text-align:right">2025</th><th style="text-align:right">Q1 2026</th><th>Trend</th></tr></thead><tbody id="spend-cat-table"></tbody></table></div></div></div></div></div>
+<div class="exp" id="x-spend-cat"><div class="card" style="border-radius:8px"><button class="exp-head" onclick="xp('x-spend-cat')"><div style="flex:1"><div class="et">Category breakdown — 7 months</div><div class="es">$16,204 across ~600 transactions</div></div><span class="chev">▸</span></button><div class="exp-body"><div style="margin-top:14px"><div class="tw"><table><thead><tr><th>Category</th><th style="text-align:right">Monthly avg</th><th style="text-align:right">7-mo total</th><th style="text-align:right">%</th></tr></thead><tbody id="spend-cat-table"></tbody></table></div></div></div></div></div>
 
-<div class="sec"><span class="sec-text">Contribution flows <span class="done-tag">Updated</span></span></div>
+<div class="sec"><span class="sec-text">Contribution flows</span></div>
 <div style="display:flex;gap:12px;flex-wrap:wrap">
-<div class="card" style="flex:1;min-width:300px;padding:18px">
+<div class="card" style="flex:1;min-width:280px;padding:18px">
 <div class="chart-label" style="color:var(--blue);text-align:left">Jon — $72,450/yr (~$51K Roth-destined)</div>
 <div class="cf-list">
 <div class="cf-row"><span style="color:var(--green)">●</span><span style="flex:1">TSA Roth (9%)</span><span style="font-family:var(--font-mono);color:var(--green);font-size:11px">~$24,200</span></div>
@@ -287,15 +350,16 @@ tr:hover td{background:var(--bg-inset)}
 <div class="cf-row"><span style="color:var(--red)">●</span><span style="flex:1">TSA employer</span><span style="font-family:var(--font-mono);color:var(--red);font-size:11px">~$7,900</span></div>
 <div class="cf-row"><span style="color:var(--red)">●</span><span style="flex:1">Plan B employer (5%)</span><span style="font-family:var(--font-mono);color:var(--red);font-size:11px">~$13,450</span></div>
 </div></div>
-<div class="card" style="flex:1;min-width:300px;padding:18px">
-<div class="chart-label" style="color:var(--purple);text-align:left">Lenora — $25,490/yr ($1.3K Roth) <span class="done-tag">Updated</span></div>
+<div class="card" style="flex:1;min-width:280px;padding:18px">
+<div class="chart-label" style="color:var(--purple);text-align:left">Lenora — $25,490/yr (9% pre-tax + 1% Roth)</div>
 <div class="cf-list">
 <div class="cf-row"><span style="color:var(--red)">●</span><span style="flex:1">401k pre-tax (9%)</span><span style="font-family:var(--font-mono);color:var(--red);font-size:11px">~$12,074</span></div>
 <div class="cf-row"><span style="color:var(--green)">●</span><span style="flex:1">401k Roth (1%)</span><span style="font-family:var(--font-mono);color:var(--green);font-size:11px">~$1,342</span></div>
 <div class="cf-row"><span style="color:var(--red)">●</span><span style="flex:1">Employer 6%</span><span style="font-family:var(--font-mono);color:var(--red);font-size:11px">~$8,049</span></div>
 <div class="cf-row"><span style="color:var(--red)">●</span><span style="flex:1">Employer 3% match</span><span style="font-family:var(--font-mono);color:var(--red);font-size:11px">~$4,025</span></div>
-<div class="cf-row" style="border-bottom:none"><span style="color:var(--amber)">○</span><span style="flex:1;color:var(--amber)">Room under 402(g) limit</span><span style="font-family:var(--font-mono);color:var(--amber);font-size:11px">$10,084</span></div>
-</div></div></div>
+<div class="cf-row" style="border-bottom:none"><span style="color:var(--amber)">○</span><span style="flex:1;color:var(--amber)">Room under 402(g)</span><span style="font-family:var(--font-mono);color:var(--amber);font-size:11px">$10K more</span></div>
+</div></div>
+</div>
 
 <div class="sec"><span class="sec-text">Pay growth (Jon)</span></div>
 <div class="card" style="padding:20px"><canvas id="c-pay" height="220"></canvas></div>
@@ -309,7 +373,7 @@ tr:hover td{background:var(--bg-inset)}
 </div>
 </div>
 
-<!-- ═══════════ RISK TAB ═══════════ -->
+<!-- ═══════════ TAB: RISK ═══════════ -->
 <div id="tab-risk" class="tab-panel">
 <div class="sec"><span class="sec-text">BTC price sensitivity</span></div>
 <div class="card" style="padding:24px">
@@ -323,51 +387,50 @@ tr:hover td{background:var(--bg-inset)}
 
 <div class="sec"><span class="sec-text">Insurance gaps <span class="badge" style="color:var(--red);background:var(--red-bg);border:.5px solid var(--red-border)">Critical</span></span></div>
 <div class="alrt c"><div><div class="at">Jon life: $150K vs $1-1.5M need</div><div class="ad">Purchase 20yr level term OUTSIDE Kaiser. ~$50-80/mo. Shop Policygenius/Haven Life/Ladder.</div></div></div>
-<div class="alrt c"><div><div class="at">Jon LTD: waived — $0 after 180 days</div><div class="ad">Elect 60% at open enrollment. After-tax premiums → tax-free benefits. 532 hrs sick leave (~$69K) bridges 7 weeks + 180-day salary continuance.</div></div></div>
-<div class="alrt c"><div><div class="at">Estate: zero protections</div><div class="ad">No wills/trust/POA. Two minor children. Cold storage BTC ($180K) unprotected. Estate attorney: $2.5-4K.</div></div></div>
-<div class="alrt c"><div><div class="at">⚠️ Emergency fund: $12,100 ($3.4K Jon + $8.7K Lenora)</div><div class="ad">Depleted by BTC buys ($41K), poker bankroll ($12K ATM), rodent damage ($21K). Target $25K in HYSA.</div></div></div>
-<div class="alrt w"><div><div class="at">No umbrella ($1.9M NW)</div><div class="ad">$1-2M policy = $200-400/yr.</div></div></div>
+<div class="alrt c"><div><div class="at">Jon LTD: waived — $0 after 180 days</div><div class="ad">Elect 60% at open enrollment. After-tax premiums → tax-free benefits.</div></div></div>
+<div class="alrt c"><div><div class="at">Estate: zero protections</div><div class="ad">No wills/trust/POA. Two minor children. Cold storage BTC (~$180K) unprotected. Estate attorney: $2.5-4K.</div></div></div>
+<div class="alrt w"><div><div class="at">No umbrella ($1.86M NW)</div><div class="ad">$1-2M policy = $200-400/yr.</div></div></div>
+<div class="alrt c"><div><div class="at">Emergency fund depleted: $3,444</div><div class="ad">Was $19.7K — drained by BTC buys ($41K), poker bankroll ($12K ATM), rodent damage ($21K). Rebuild to $25K ASAP.</div></div></div>
 
-<div class="sec"><span class="sec-text">Beneficiaries <span class="done-tag">16/21</span></span></div>
+<div class="sec"><span class="sec-text">Beneficiaries <span class="done-tag">15/21</span></span></div>
 <div class="card" style="padding:18px">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:12px;font-weight:500">16 of 21 accounts secured</span><span style="font-size:12px;color:var(--green);font-weight:500">76%</span></div>
-<div class="prog-bar"><div class="prog-fill" style="width:76%;background:var(--green)"></div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:12px;font-weight:500">15 of 21 accounts secured</span><span style="font-size:12px;color:var(--green);font-weight:500">71%</span></div>
+<div class="prog-bar"><div class="prog-fill" style="width:71%;background:var(--green)"></div></div>
 <div id="bene-list" style="margin-top:10px"></div>
 </div>
 
 <div class="sec"><span class="sec-text">Other risks</span></div>
-<div class="alrt w"><div><div class="at">Capital One $27,408 — 0% expires Sep 2026</div><div class="ad">5 months remaining. ~$5,500/mo to pay off on time.</div></div></div>
-<div class="alrt w"><div><div class="at">Poker income: ~$100K win in 2025</div><div class="ad">Gambling winnings fully taxable. ~$17K in buy-ins potentially deductible if itemizing. 2025 tax return impact: significant AGI increase.</div></div></div>
+<div class="alrt w"><div><div class="at">Capital One $27.4K — 0% expires Sep 2026</div><div class="ad">Pay before 20%+ APR. 5 months left.</div></div></div>
 
 <div class="exp" id="x-ira"><div class="card" style="border-radius:8px"><button class="exp-head" onclick="xp('x-ira')"><div style="flex:1"><div class="et">IRA growth trajectory</div><div class="es">$1.02M combined</div></div><span class="chev">▸</span></button><div class="exp-body"><div style="margin-top:14px"><canvas id="c-ira" height="200"></canvas><div style="margin-top:10px;color:var(--text-mid)"><strong style="color:var(--green)">$1.02M</strong> → <strong>$1.7-2.0M</strong> by 2035.</div></div></div></div></div>
-
 <div class="exp" id="x-btca"><div class="card" style="border-radius:8px"><button class="exp-head" onclick="xp('x-btca')"><div style="flex:1"><div class="et">BTC accumulation (Jon)</div><div class="es">3.14 → 4.244 BTC over 4 years</div></div><span class="chev">▸</span></button><div class="exp-body"><div style="margin-top:14px"><canvas id="c-btca" height="200"></canvas></div></div></div></div>
 </div>
 
-<!-- ═══════════ ACTIONS TAB ═══════════ -->
+<!-- ═══════════ TAB: ACTIONS ═══════════ -->
 <div id="tab-actions" class="tab-panel">
 <div class="sec"><span class="sec-text" style="color:var(--green)">Completed</span></div><div id="a-done"></div>
 <div class="sec"><span class="sec-text" style="color:var(--red)">Execute now</span></div><div id="a-now"></div>
 <div class="sec"><span class="sec-text" style="color:var(--amber)">Execute 2026</span></div><div id="a-year"></div>
 <div class="sec"><span class="sec-text" style="color:var(--blue)">At separation</span></div><div id="a-sep"></div>
-<div class="summary"><h3>Status assessment</h3><p><strong style="color:var(--text)">$1.86M true net worth at 36.</strong> $1.52M investable, 21 accounts, 7 custodians. Trajectory: $2.5-3M+ by 2035. Roth pipeline ~$52K/yr. Saving $97.9K/yr (24.5%).</p><p style="margin-top:10px">Remaining gaps are <strong style="color:var(--red)">protective, not structural</strong>: life insurance, LTD, estate planning, umbrella, emergency fund rebuild.</p></div>
+<div class="summary"><h3>Status assessment</h3>
+<p><strong style="color:var(--text)">$1.86M net worth at 36.</strong> $1.52M investable, 21 accounts, 7 custodians. Trajectory: $2.5-3M+ by 2035. Roth pipeline ~$52K/yr. Saving $97.9K/yr (24.3%).</p>
+<p style="margin-top:10px">Remaining gaps are <strong style="color:var(--red)">protective, not structural</strong>: life insurance, LTD, estate planning, umbrella, e-fund rebuild.</p>
+</div>
 </div>
 
-<!-- ═══════════ TRACKER TAB ═══════════ -->
+<!-- ═══════════ TAB: TRACKER ═══════════ -->
 <div id="tab-tracker" class="tab-panel">
 <div class="sec"><span class="sec-text" style="color:var(--green)">Completed</span></div><div class="card" id="tk-done"></div>
 <div class="sec" style="margin-top:32px"><span class="sec-text" style="color:var(--red)">Outstanding</span></div>
 <p style="color:var(--text-muted);margin-bottom:14px;font-size:12px">Click to check off.</p>
 <div class="card" id="tk-todo"></div>
-<div class="sec" style="margin-top:32px"><span class="sec-text" style="color:var(--amber)">Open questions (<span id="oq-count"></span>)</span></div>
-<div id="tk-q"></div>
+<div class="sec" style="margin-top:32px"><span class="sec-text" style="color:var(--amber)">Open questions (5)</span></div><div id="tk-q"></div>
 <div class="sec" style="margin-top:32px"><span class="sec-text" style="color:var(--green)">SPD & CBA verified facts</span></div><div id="tk-cf"></div>
 <div class="sec" style="margin-top:32px"><span class="sec-text" style="color:var(--blue)">Project phases</span></div><div class="card" id="tk-phases"></div>
 </div>
 
-</div><!-- /content -->
-
-<div class="footer">Warta Household v8.0 · Data: Empower 3/31/2026 · NW $1.86M (true, less $273K loans) · Not financial advice</div>
+</div>
+<div class="footer">Warta Household v8.0 · Data: Mar 31, 2026 (Empower) · NW $1.86M · Not financial advice</div>
 
 <script>
 document.querySelectorAll('.nav-btn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');setTimeout(()=>IT[b.dataset.tab]?.(),50);});});
@@ -380,277 +443,174 @@ const TT={backgroundColor:'#fff',titleColor:'#3a3530',bodyColor:'#6a6358',border
 
 function mkD(cid,lid,data){const x=document.getElementById(cid);if(!x)return;if(CI[cid])CI[cid].destroy();CI[cid]=new Chart(x,{type:'doughnut',data:{labels:data.map(d=>d.n),datasets:[{data:data.map(d=>d.v),backgroundColor:data.map(d=>d.c),borderColor:'#fff',borderWidth:2.5,hoverOffset:6}]},options:{responsive:false,cutout:'62%',plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>` ${c.label}: ${data[c.dataIndex].p}% (${fmt(c.raw)})`}}}}});const l=document.getElementById(lid);if(l)l.innerHTML=data.filter(d=>d.p>0).map(d=>`<div class="chart-legend-item"><div class="chart-legend-dot" style="background:${d.c}"></div>${d.n} <strong style="color:var(--text)">${d.p}%</strong></div>`).join('');}
 
-/* ═══════ OVERVIEW ═══════ */
 function initOverview(){if(D.ov)return;
-// Household by asset class — updated with Empower 3/31 values
-// BTC: Jon $228,533 + Lenora $229,597 = $458,130 at Empower prices (~$57.8K/BTC implied)
-mkD('c-ah','l-ah',[{n:'US Equities',v:690000,p:45,c:'#4a7a9a'},{n:'Intl Equities',v:200000,p:13,c:'#4a8a9a'},{n:'Bitcoin (7.931)',v:458130,p:30,c:'#c49a5a'},{n:'Bonds',v:21700,p:1,c:'#7a6a90'},{n:'Other/Cash',v:150000,p:10,c:'#aaa49a'}]);
+// Updated asset allocation from 3/31/2026 Empower data
+// Jon: Pre-tax $772K + Roth $21K + BTC $229K + Taxable $2K + Cash $3K = ~$1,027K
+// Lenora: Pre-tax $246K + Roth $18K + BTC $230K + Cash $9K = ~$503K
+// Combined: US equities ~$720K, Intl ~$219K, BTC ~$458K, Bonds $22K, Other/Cash ~$99K
+mkD('c-ah','l-ah',[{n:'US Equities',v:720000,p:47,c:'#4a7a9a'},{n:'Intl Equities',v:219000,p:14,c:'#4a8a9a'},{n:'Bitcoin (7.931)',v:458000,p:30,c:'#c49a5a'},{n:'Bonds',v:22000,p:1,c:'#7a6a90'},{n:'Other/Cash',v:99000,p:7,c:'#aaa49a'}]);
+mkD('c-aj','l-aj',[{n:'US Total Market',v:528000,p:51,c:'#4a7a9a'},{n:'Intl Growth',v:146000,p:14,c:'#4a8a9a'},{n:'US Large Cap',v:47000,p:5,c:'#7a6a90'},{n:'Emerging Mkts',v:11000,p:1,c:'#b87a4a'},{n:'Bitcoin',v:229000,p:22,c:'#c49a5a'},{n:'Cash/Other',v:65000,p:6,c:'#aaa49a'}]);
 
-// Jon by tax treatment — per Empower 3/31
-mkD('c-tj','l-tj',[{n:'Pre-Tax',v:772234,p:75,c:'#b86e5e'},{n:'Roth',v:20851,p:2,c:'#5a8a6a'},{n:'Taxable',v:230039,p:22,c:'#c49a5a'},{n:'Cash',v:3452,p:1,c:'#aaa49a'}]);
-
-// Lenora by tax treatment — per Empower 3/31
-mkD('c-tl','l-tl',[{n:'Pre-Tax',v:245708,p:47,c:'#b86e5e'},{n:'Roth',v:18311,p:4,c:'#5a8a6a'},{n:'Taxable',v:229597,p:44,c:'#c49a5a'},{n:'Cash',v:8656,p:2,c:'#aaa49a'},{n:'Other',v:17000,p:3,c:'#7a6a90'}]);
-
-const funds=[
-{f:'Instl Total Stock Market Trust',a:'Jon Plan B, 401k · Lenora 401k',v:276,c:'US Total Mkt',cc:'blue'},
-{f:'VG Total Stock Market Instl Sel',a:'Jon TSA',v:286,c:'US Total Mkt',cc:'blue'},
-{f:'VTI Total Stock Market ETF',a:'Lenora Betterment Trad',v:45,c:'US Total Mkt',cc:'blue'},
-{f:'VG Intl Growth Admiral (VWIGX)',a:'Jon Plan B, 401k, TSA · Lenora 401k',v:169,c:'Intl Growth',cc:'cyan'},
-{f:'VEA FTSE Developed Markets',a:'Lenora Betterment Trad',v:39,c:'Intl Developed',cc:'cyan'},
-{f:'VWO FTSE Emerging Markets',a:'Lenora Betterment Roth',v:12,c:'Emerging Mkts',cc:'orange'},
-{f:'VG Explorer Fund Admiral',a:'Lenora 401k',v:22,c:'US Sm/Mid',cc:'green'},
-{f:'VSMAX Small Cap Index',a:'Jon Schwab PCRA',v:59,c:'US Small Cap',cc:'green'},
-{f:'SPYM / SPMD / SPSM',a:'Lenora Betterment',v:33,c:'US Multi-Cap',cc:'blue'},
-{f:'VEMAX Emerging Mkts',a:'Jon Roth IRA',v:11,c:'Emerging Mkts',cc:'orange'},
-{f:'FCNTX Contrafund',a:'Jon PCRA (Roth)',v:10,c:'US Lg Growth',cc:'purple'},
-{f:'VIP Index 500',a:'Jon Fidelity Annuity',v:36,c:'US Large Cap',cc:'purple'},
-{f:'AGG/BND/BNDX/EMB',a:'Lenora Betterment',v:21,c:'Fixed Income',cc:'purple'},
-{f:'Bitcoin (BTC)',a:'Both Strike, Cold',v:458,c:'Bitcoin',cc:'amber'},
-{f:'VGSTX Star Fund',a:'Lenora Vanguard Roth',v:2,c:'Balanced',cc:'purple'}
-];
+const funds=[{f:'Instl Total Stock Market Trust',a:'Jon Plan B, 401k · Lenora 401k',v:276,c:'US Total Mkt',cc:'blue'},{f:'VG Total Stock Market Instl Sel',a:'Jon TSA',v:286,c:'US Total Mkt',cc:'blue'},{f:'VTI Total Stock Market ETF',a:'Lenora Betterment Trad',v:45,c:'US Total Mkt',cc:'blue'},{f:'VG Intl Growth Admiral (VWIGX)',a:'Jon Plan B, 401k, TSA · Lenora 401k',v:169,c:'Intl Growth',cc:'cyan'},{f:'VEA FTSE Developed Markets',a:'Lenora Betterment Trad',v:39,c:'Intl Developed',cc:'cyan'},{f:'VWO FTSE Emerging Markets',a:'Lenora Betterment Roth',v:12,c:'Emerging Mkts',cc:'orange'},{f:'VG Explorer Fund Admiral',a:'Lenora 401k',v:22,c:'US Sm/Mid',cc:'green'},{f:'VSMAX Small Cap Index',a:'Jon Schwab PCRA',v:59,c:'US Small Cap',cc:'green'},{f:'SPYM / SPMD / SPSM',a:'Lenora Betterment',v:33,c:'US Multi-Cap',cc:'blue'},{f:'VEMAX Emerging Mkts',a:'Jon Roth IRA',v:11,c:'Emerging Mkts',cc:'orange'},{f:'FCNTX Contrafund',a:'Jon PCRA (Roth)',v:10,c:'US Lg Growth',cc:'purple'},{f:'VIP Index 500',a:'Jon Fidelity Annuity',v:36,c:'US Large Cap',cc:'purple'},{f:'AGG/BND/BNDX/EMB',a:'Lenora Betterment',v:22,c:'Fixed Income',cc:'purple'},{f:'FBTC + Direct BTC',a:'Both Strike, Cold',v:458,c:'Bitcoin',cc:'amber'},{f:'VGSTX Star Fund',a:'Lenora Vanguard Roth',v:2,c:'Balanced',cc:'purple'}];
 const cm={blue:'--blue',cyan:'--cyan',green:'--green',orange:'--orange',purple:'--purple',amber:'--amber'};
 document.getElementById('fund-table').innerHTML=funds.map(f=>`<tr><td style="font-weight:500">${f.f}</td><td style="color:var(--text-mid)">${f.a}</td><td style="font-family:var(--font-mono);font-weight:500">$${f.v}K</td><td><span class="badge" style="color:var(${cm[f.cc]});background:var(${cm[f.cc]}-bg);border:.5px solid var(${cm[f.cc]}-border)">${f.c}</span></td></tr>`).join('');
 
-// Account map — ALL updated to Empower 3/31/2026
+// Updated account values from 3/31/2026 Empower data
 const accts=[
-{n:'Jon: Kaiser TSA (403b)',cu:'Vanguard',v:420761,t:'Pre-Tax',h:'TSM + VWIGX · 0% pre-tax / 9% Roth eff 04/10'},
-{n:'Jon: Kaiser Plan B',cu:'Vanguard',v:186833,t:'Mixed',h:'TSM + VWIGX · 10% after-tax eff 04/10'},
-{n:'Lenora: Betterment Trad IRA',cu:'Betterment',v:125684,t:'Pre-Tax',h:'VTI, VEA, bonds (86/14) · 0.25% fee'},
-{n:'Lenora: Kaiser 401k',cu:'Vanguard',v:120024,t:'Pre-Tax',h:'TSM + VWIGX + Explorer · 9% pre/1% Roth'},
-{n:'Jon: Kaiser 401k',cu:'Vanguard',v:66466,t:'Pre-Tax',h:'TSM + VWIGX · defunct'},
+{n:'Jon: Kaiser TSA (403b)',cu:'Vanguard',v:420761,t:'Pre-Tax',h:'TSM + VWIGX · 9% Roth eff 04/10'},
+{n:'Jon: Kaiser Plan B',cu:'Vanguard',v:186833,t:'Mixed',h:'TSM + VWIGX · 10% after-tax'},
+{n:'Lenora: Betterment Trad IRA',cu:'Betterment',v:125684,t:'Pre-Tax',h:'VTI, VEA, bonds (86/14)'},
+{n:'Lenora: Kaiser 401k',cu:'Vanguard',v:120024,t:'Pre-Tax',h:'TSM + VWIGX + Explorer · 9%/1% Roth'},
+{n:'Jon: Kaiser 401k',cu:'Vanguard',v:66466,t:'Pre-Tax',h:'TSM + VWIGX'},
 {n:'Jon: PCRA (Pre-Tax)',cu:'Schwab',v:58622,t:'Pre-Tax',h:'VSMAX Small Cap'},
-{n:'Jon: Fidelity Annuity',cu:'Fidelity',v:36395,t:'Tax-Def',h:'VIP Index 500 · non-qualified'},
-{n:'Jon: Bitcoin',cu:'Strike+Cold',v:228533,t:'Taxable',h:'4.244 BTC'},
+{n:'Jon: Fidelity Annuity',cu:'Fidelity',v:36395,t:'Tax-Def',h:'VIP Index 500'},
+{n:'Jon: Bitcoin',cu:'Strike+Cold',v:228533,t:'Taxable',h:'4.244 BTC (0.54 Strike + 3.70 cold)'},
 {n:'Lenora: Bitcoin',cu:'Strike+Cold',v:229597,t:'Taxable',h:'3.687 BTC'},
-{n:'Lenora: Betterment Roth',cu:'Betterment',v:16137,t:'Roth',h:'VWO 70% · 0.25% fee'},
+{n:'Lenora: Betterment Roth',cu:'Betterment',v:16137,t:'Roth',h:'VWO 70%'},
 {n:'Jon: Roth IRA',cu:'Vanguard',v:10616,t:'Roth',h:'VEMAX EM'},
 {n:'Jon: PCRA (Roth)',cu:'Schwab',v:10235,t:'Roth',h:'FCNTX'},
-{n:'Lenora: Patelco Checking',cu:'Patelco',v:8656,t:'Cash',h:'Stale 1/14 · needs reconnect'},
-{n:'Jon: KP Retirement Plan',cu:'Fidelity',v:3157,t:'Pre-Tax',h:'Pension-related'},
-{n:'Jon: Schwab Checking',cu:'Schwab',v:3444,t:'Cash',h:'⚠️ Depleted from $19.7K'},
+{n:'Lenora: Patelco Chk',cu:'Patelco',v:8656,t:'Cash',h:'Stale 1/14/2026'},
 {n:'Lenora: Vanguard Roth',cu:'Vanguard',v:2174,t:'Roth',h:'VGSTX Star'},
-{n:'Jon: Fidelity Brokerage',cu:'Fidelity',v:1504,t:'Taxable',h:'FBTC + cash'}
-];
+{n:'Jon: Checking',cu:'Schwab',v:3444,t:'Cash',h:'⚠️ Depleted'},
+{n:'Jon: Fidelity Ret Plan',cu:'Fidelity',v:3157,t:'Pre-Tax',h:'Pension-related'},
+{n:'Jon: Brokerage',cu:'Fidelity',v:1504,t:'Taxable',h:'FBTC'}];
 const tc={'Pre-Tax':['--red','--red-bg','--red-border'],'Mixed':['--orange','--orange-bg','--orange-border'],'Tax-Def':['--orange','--orange-bg','--orange-border'],'Roth':['--green','--green-bg','--green-border'],'Taxable':['--amber','--amber-bg','--amber-border'],'Cash':['--cyan','--cyan-bg','--cyan-border']};
-document.getElementById('acct-table').innerHTML=accts.map(a=>{const c=tc[a.t];return`<tr><td style="font-weight:500">${a.n}</td><td style="color:var(--text-mid)">${a.cu}</td><td style="font-family:var(--font-mono);font-weight:500">${fmt(a.v)}</td><td><span class="badge" style="color:var(${c[0]});background:var(${c[1]});border:.5px solid var(${c[2]})">${a.t}</span></td><td style="color:var(--text-muted);font-size:11px">${a.h}</td></tr>`;}).join('');
-D.ov=true;}
+document.getElementById('acct-table').innerHTML=accts.map(a=>{const c=tc[a.t];return`<tr><td style="font-weight:500">${a.n}</td><td style="color:var(--text-mid)">${a.cu}</td><td style="font-family:var(--font-mono);font-weight:500">${fmt(a.v)}</td><td><span class="badge" style="color:var(${c[0]});background:var(${c[1]});border:.5px solid var(${c[2]})">${a.t}</span></td><td style="color:var(--text-muted);font-size:11px">${a.h}</td></tr>`;}).join('');D.ov=true;}
 
-/* ═══════ TAX ═══════ */
 function initTax(){if(D.tx)return;
-// Household tax treatment — Empower 3/31
-mkD('c-th','l-th',[{n:'Pre-Tax/Def',v:1054337,p:69,c:'#b86e5e'},{n:'Roth',v:39162,p:3,c:'#5a8a6a'},{n:'Taxable',v:460673,p:30,c:'#c49a5a'}]);
+// Jon: Pre-tax $772,234, Tax-Def $36,395, Roth $20,851, Taxable $230,037
+mkD('c-tj','l-tj',[{n:'Pre-Tax',v:772234,p:73,c:'#b86e5e'},{n:'Tax-Def',v:36395,p:3,c:'#b87a4a'},{n:'Roth',v:20851,p:2,c:'#5a8a6a'},{n:'Taxable',v:230037,p:22,c:'#c49a5a'}]);
+// Lenora: Pre-tax $245,708, Roth $18,311, Taxable $229,597
+mkD('c-tl','l-tl',[{n:'Pre-Tax',v:245708,p:50,c:'#b86e5e'},{n:'Roth',v:18311,p:4,c:'#5a8a6a'},{n:'Taxable',v:229597,p:47,c:'#c49a5a'}]);
+// Household combined
+mkD('c-th','l-th',[{n:'Pre-Tax/Def',v:1054337,p:68,c:'#b86e5e'},{n:'Roth',v:39162,p:3,c:'#5a8a6a'},{n:'Taxable',v:459634,p:30,c:'#c49a5a'}]);
 updR();D.tx=true;}
 
 function updR(){const a=+document.getElementById('r-sld').value;document.getElementById('r-disp').textContent=ff(a);const t=a*9;document.getElementById('r-stats').innerHTML=`<div class="stat"><div class="s-label">Tax @ 22%</div><div class="s-val" style="font-size:20px;color:var(--amber)">${ff(Math.round(a*.22))}</div></div><div class="stat"><div class="s-label">Tax @ 24%</div><div class="s-val" style="font-size:20px;color:var(--red)">${ff(Math.round(a*.24))}</div></div><div class="stat"><div class="s-label">9yr total</div><div class="s-val" style="font-size:20px;color:var(--green)">${fmt(t)}</div></div>`;}
 
-/* ═══════ RETIREMENT ═══════ */
 function initRetirement(){if(D.rt)return;
-const ph=[
-{p:'2035–2040',a:'46–51',s:'BTC (LTCG) + seasoned Roth',c:'#c49a5a',n:'0% LTCG bracket. Seasoned Roth draws.'},
-{p:'2040–2046',a:'51–57',s:'BTC + Roth + pension at 54 (Rule of 75)',c:'#5a8a6a',n:'Rule of 75: pension at 54 (54+21=75). Reduced to ~55%.'},
-{p:'2046–2048',a:'57–59½',s:'Roth + taxable + pension',c:'#4a8a9a',n:'Final gap years. Roth critical.'},
-{p:'2048+',a:'59½+',s:'Traditional + pension + Roth',c:'#4a7a9a',n:'Full pre-tax access. RMDs at 73.'},
-{p:'2054+',a:'65+',s:'Pension + SS + Trad + HRA',c:'#7a6a90',n:'$3,084-6,707/mo pension + SS. HRA $52.5K.'}
-];
+const ph=[{p:'2035–2040',a:'46–51',s:'BTC (LTCG) + seasoned Roth',c:'#c49a5a',n:'0% LTCG bracket. Seasoned Roth draws.'},{p:'2040–2046',a:'51–57',s:'BTC + Roth + pension at 55',c:'#5a8a6a',n:'Early pension $2,886/mo. Rule of 75: pension at 54.'},{p:'2046–2048',a:'57–59½',s:'Roth + taxable + pension',c:'#4a8a9a',n:'Final gap years. Roth critical.'},{p:'2048+',a:'59½+',s:'Traditional + pension + Roth',c:'#4a7a9a',n:'Full pre-tax access. RMDs at 73.'},{p:'2054+',a:'65+',s:'Pension + SS + Trad + HRA',c:'#7a6a90',n:'$3,344-6,707/mo pension + SS. HRA $52.5K.'}];
 document.getElementById('timeline').innerHTML='<div class="tl-line"></div>'+ph.map(p=>`<div class="tl-item"><div class="tl-dot" style="background:${p.c}"></div><div class="tl-card card"><div class="tl-phase" style="color:${p.c}">${p.p} <span class="badge" style="color:${p.c};background:${p.c}15;border:.5px solid ${p.c}30;margin-left:8px">Age ${p.a}</span></div><div class="tl-src">${p.s}</div><div class="tl-note">${p.n}</div></div></div>`).join('');
 selPen(0);updFI();D.rt=true;}
 
-const PD=[
-{l:'Leave now (12yr)',a:37,s:65,m:3344,ls:491998,m65:null},
-{l:'At 40 (15yr)',a:40,s:55,m:2886,ls:501999,m65:3927},
-{l:'At 42 (17yr)',a:42,s:65,m:4370,ls:null,m65:4370},
-{l:'At 45 (20yr)',a:45,s:65,m:5132,ls:null,m65:5132},
-{l:'At 50 (25yr)',a:50,s:50,m:3791,ls:696693,m65:6707}
-];
-function selPen(i){document.getElementById('pen-btns').innerHTML=PD.map((p,x)=>`<button class="pen-btn ${x===i?'active':''}" onclick="selPen(${x})">${p.l}</button>`).join('');const s=PD[i];let h='<div class="stat-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">';h+=`<div class="stat"><div class="s-label">Monthly</div><div class="s-val" style="font-size:20px;color:var(--cyan)">$${s.m.toLocaleString()}</div><div class="s-sub">Starts at ${s.s}</div></div>`;if(s.ls)h+=`<div class="stat"><div class="s-label">Lump sum</div><div class="s-val" style="font-size:20px;color:var(--amber)">${ff(s.ls)}</div></div>`;if(s.m65)h+=`<div class="stat"><div class="s-label">At 65</div><div class="s-val" style="font-size:20px;color:var(--purple)">$${s.m65.toLocaleString()}/mo</div></div>`;h+=`<div class="stat"><div class="s-label">Annual</div><div class="s-val" style="font-size:20px;color:var(--green)">$${(s.m*12).toLocaleString()}</div></div></div>`;if(s.ls){const fv=Math.round(s.ls*Math.pow(1.07,65-s.a)),sw=Math.round(fv*.04),an=(s.m65||s.m)*12,w=sw>an;h+=`<p style="color:var(--text-mid);line-height:1.7;margin-top:14px"><strong>Lump vs annuity:</strong> ${ff(s.ls)} @ 7% → ~${fmt(fv)} by 65. 4% SWR = ~${fmt(sw)}/yr vs $${an.toLocaleString()}/yr. <span style="color:var(${w?'--green':'--amber'})">${w?'Lump wins.':'Annuity competitive.'}</span></p>`;}document.getElementById('pen-detail').innerHTML=h;}
+const PD=[{l:'Leave now (12yr)',a:37,s:65,m:3344,ls:491998,m65:null},{l:'At 40 (15yr)',a:40,s:55,m:2886,ls:501999,m65:3927},{l:'At 42 (17yr)',a:42,s:65,m:4370,ls:null,m65:4370},{l:'At 45 (20yr)',a:45,s:65,m:5132,ls:null,m65:5132},{l:'At 50 (25yr)',a:50,s:50,m:3791,ls:696693,m65:6707}];
+function selPen(i){document.getElementById('pen-btns').innerHTML=PD.map((p,x)=>`<button class="pen-btn ${x===i?'active':''}" onclick="selPen(${x})">${p.l}</button>`).join('');const s=PD[i];let h='<div class="stat-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">';h+=`<div class="stat"><div class="s-label">Monthly</div><div class="s-val" style="font-size:20px;color:var(--cyan)">$${s.m.toLocaleString()}</div><div class="s-sub">Starts at ${s.s}</div></div>`;if(s.ls)h+=`<div class="stat"><div class="s-label">Lump sum</div><div class="s-val" style="font-size:20px;color:var(--amber)">${ff(s.ls)}</div></div>`;if(s.m65)h+=`<div class="stat"><div class="s-label">At 65</div><div class="s-val" style="font-size:20px;color:var(--purple)">$${s.m65.toLocaleString()}/mo</div></div>`;h+=`<div class="stat"><div class="s-label">Annual</div><div class="s-val" style="font-size:20px;color:var(--green)">$${(s.m*12).toLocaleString()}</div></div></div>`;if(s.ls){const fv=Math.round(s.ls*Math.pow(1.07,65-s.a)),sw=Math.round(fv*.04),an=(s.m65||s.m)*12,w=sw>an;h+=`<p style="color:var(--text-mid);line-height:1.7;margin-top:14px"><strong>Lump vs annuity:</strong> ${ff(s.ls)} @ 7% → ~${fmt(fv)} by 65. 4% SWR = ~${fmt(sw)}/yr vs $${an.toLocaleString()}/yr. <span style="color:var(${w?'--green':'--amber'})">${w?'Lump wins.':'Annuity competitive.'}</span></p>`;}document.getElementById('pen-detail').innerHTML=h;}
 
-function updFI(){
-const g=+document.getElementById('fi-ira').value/100,b=+document.getElementById('fi-btc').value/100,inf=+document.getElementById('fi-inf').value/100;
-document.getElementById('fi-ira-v').textContent=Math.round(g*100)+'%';
-document.getElementById('fi-btc-v').textContent=Math.round(b*100)+'%';
-document.getElementById('fi-inf-v').textContent=(inf*100).toFixed(1)+'%';
-// Updated starting values: IRA ~$1.018M (all pre-tax/deferred), BTC ~$458K, Roth ~$39K
-let ira=1018000,btc=458130,roth=39162;
-for(let i=0;i<9;i++){ira=ira*(1+g)+72450;btc=btc*(1+b);roth=roth*(1+g)+52200;}
-const tot=ira+btc+roth,sp=117400*Math.pow(1+inf,9),m=tot/sp;
-document.getElementById('fi-stats').innerHTML=`<div class="stat"><div class="s-label">IRA/401k 2035</div><div class="s-val" style="font-size:18px;color:var(--green)">${fmt(Math.round(ira))}</div></div><div class="stat"><div class="s-label">BTC 2035</div><div class="s-val" style="font-size:18px;color:var(--amber)">${fmt(Math.round(btc))}</div></div><div class="stat"><div class="s-label">Roth 2035</div><div class="s-val" style="font-size:18px;color:var(--green)">${fmt(Math.round(roth))}</div></div><div class="stat"><div class="s-label">FI multiple</div><div class="s-val" style="font-size:18px;color:${m>=25?'var(--green)':m>=20?'var(--amber)':'var(--red)'}">${m.toFixed(1)}×</div><div class="s-sub">Target: 25×</div></div>`;}
+function updFI(){const g=+document.getElementById('fi-ira').value/100,b=+document.getElementById('fi-btc').value/100,inf=+document.getElementById('fi-inf').value/100;document.getElementById('fi-ira-v').textContent=Math.round(g*100)+'%';document.getElementById('fi-btc-v').textContent=Math.round(b*100)+'%';document.getElementById('fi-inf-v').textContent=(inf*100).toFixed(1)+'%';
+// Updated starting values from 3/31/2026 Empower
+let ira=1017942,btc=458130,roth=39162;for(let i=0;i<9;i++){ira=ira*(1+g)+72450;btc=btc*(1+b);roth=roth*(1+g)+52342;}const tot=ira+btc+roth,sp=117400*Math.pow(1+inf,9),m=tot/sp;document.getElementById('fi-stats').innerHTML=`<div class="stat"><div class="s-label">IRA/401k 2035</div><div class="s-val" style="font-size:18px;color:var(--green)">${fmt(Math.round(ira))}</div></div><div class="stat"><div class="s-label">BTC 2035</div><div class="s-val" style="font-size:18px;color:var(--amber)">${fmt(Math.round(btc))}</div></div><div class="stat"><div class="s-label">Roth 2035</div><div class="s-val" style="font-size:18px;color:var(--green)">${fmt(Math.round(roth))}</div></div><div class="stat"><div class="s-label">FI multiple</div><div class="s-val" style="font-size:18px;color:${m>=25?'var(--green)':m>=20?'var(--amber)':'var(--red)'}">${m.toFixed(1)}×</div><div class="s-sub">Target: 25×</div></div>`;}
 
-/* ═══════ CASH FLOW ═══════ */
 function initCashflow(){if(D.cf)return;
-const bills=[
-{c:'Mortgage (P&I + escrow)',m:4421,a:53052,s:'Cash Flow'},
-{c:'HELOC / Capital One (0%)',m:779,a:9348,s:'Ends Sep 2026'},
-{c:'PG&E',m:419,a:5028,s:'Empower 2025 avg'},
-{c:'Water',m:246,a:2952,s:'Empower 2025 avg'},
-{c:'Auto ins (Jon, Tesla)',m:151,a:1811,s:'Empower confirmed'},
-{c:'Auto ins (Lenora, AAA)',m:155,a:1961,s:'Empower confirmed'},
-{c:'Bramble Trail Farm',m:150,a:1800,s:'Cash Flow / Strike'},
-{c:'T-Mobile (family plan)',m:127,a:1525,s:'Jon confirmed'},
-{c:'Comcast Internet',m:100,a:1200,s:'Cash Flow / Strike'},
-{c:'Recology',m:35,a:420,s:'Cash Flow'},
-{c:'Audible + Prime',m:31,a:372,s:'Cash Flow'},
-{c:'Spotify Duo (Lenora)',m:13,a:156,s:'Confirmed'},
-{c:'Jon CC discretionary',m:4158,a:49898,s:'Empower 2025'},
-{c:'Lenora consumer spending',m:2724,a:32693,s:'Empower 2025'},
-{c:'Remaining gap',m:500,a:6000,s:'Estimated'}
-];
-document.getElementById('bills-table').innerHTML=bills.map(b=>`<tr><td>${b.c}</td><td style="text-align:right;font-family:var(--font-mono)">$${b.m.toLocaleString()}</td><td style="text-align:right;font-family:var(--font-mono)">$${b.a.toLocaleString()}</td><td style="color:var(--text-muted);font-size:11px">${b.s}</td></tr>`).join('')+`<tr style="border-top:2px solid var(--border)"><td style="font-weight:500">Total</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500;color:var(--amber)">~$14,055</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500;color:var(--amber)">~$168,216</td><td style="color:var(--text-muted);font-size:11px">Incl. all discretionary</td></tr>`;
+const bills=[{c:'Mortgage (P&I + escrow)',m:4421,a:53052,s:'Cash Flow'},{c:'HELOC / Capital One (0%)',m:779,a:9348,s:'Ends Sep 2026'},{c:'PG&E',m:483,a:5796,s:'Cash Flow'},{c:'Water',m:289,a:3468,s:'Cash Flow'},{c:'Auto ins — Jon (Tesla)',m:151,a:1811,s:'Empower'},{c:'Auto ins — Lenora (AAA)',m:163,a:1961,s:'Empower'},{c:'Bramble Trail Farm',m:150,a:1800,s:'Cash Flow'},{c:'T-Mobile (family)',m:127,a:1525,s:'Confirmed'},{c:'Comcast',m:100,a:1200,s:'Cash Flow'},{c:'Recology',m:35,a:420,s:'Cash Flow'},{c:'Audible + Prime',m:31,a:372,s:'Cash Flow'},{c:'Spotify Duo',m:13,a:156,s:'Confirmed'},{c:'CC discretionary',m:2315,a:27778,s:'CC analysis'},{c:'Remaining gap',m:800,a:10000,s:'Estimated'}];
+document.getElementById('bills-table').innerHTML=bills.map(b=>`<tr><td>${b.c}</td><td style="text-align:right;font-family:var(--font-mono)">$${b.m.toLocaleString()}</td><td style="text-align:right;font-family:var(--font-mono)">$${b.a.toLocaleString()}</td><td style="color:var(--text-muted);font-size:11px">${b.s}</td></tr>`).join('')+`<tr style="border-top:2px solid var(--border)"><td style="font-weight:500">Total</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500;color:var(--amber)">~$9,857</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500;color:var(--amber)">~$118,687</td><td></td></tr>`;
 
-// Jon monthly spending from Empower — recurring only
-const cx=document.getElementById('c-spend');if(cx&&!CI['c-spend'])CI['c-spend']=new Chart(cx,{type:'bar',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan26','Feb26','Mar26'],datasets:[{label:'Recurring',data:[1907,1914,2365,2955,4490,3444,4590,4199,6873,5649,6044,3498,5999,7730,2451],backgroundColor:'rgba(74,122,154,0.25)',borderColor:'#4a7a9a',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>ff(c.raw)}}},scales:{y:{ticks:{callback:v=>fmt(v)},grid:{color:'rgba(0,0,0,0.04)'}},x:{grid:{display:false}}}}});
+const cx=document.getElementById('c-spend');if(cx&&!CI['c-spend'])CI['c-spend']=new Chart(cx,{type:'bar',data:{labels:['Jul','Aug','Sep','Oct','Nov','Dec','Jan'],datasets:[{data:[1932,2496,3436,2625,2326,2606,782],backgroundColor:'rgba(74,122,154,0.25)',borderColor:'#4a7a9a',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>ff(c.raw)}}},scales:{y:{ticks:{callback:v=>fmt(v)},grid:{color:'rgba(0,0,0,0.04)'}},x:{grid:{display:false}}}}});
 
-// Spending categories
-document.getElementById('spend-cat-table').innerHTML=[
-{c:'Restaurants',y:9613,q:2939,t:'↑ Q1 pace +22%'},
-{c:'Groceries',y:8412,q:2719,t:'↑ Q1 pace +30%'},
-{c:'Utilities',y:6294,q:1816,t:'Stable'},
-{c:'Travel',y:6375,q:611,t:'↓ Japan $4K was 2025'},
-{c:'Other/General',y:5799,q:988,t:'Stable'},
-{c:'Healthcare',y:2295,q:7,t:'↓ Low Q1'},
-{c:'Coffee (Avid)',y:1820,q:886,t:'↑ Pace up 95%'},
-{c:'Clothing',y:1330,q:238,t:'Stable'},
-{c:'Entertainment',y:1290,q:289,t:'Stable'},
-{c:'Personal Care',y:739,q:1038,t:'↑ Spike'}
-].map(c=>`<tr><td>${c.c}</td><td style="text-align:right;font-family:var(--font-mono)">${ff(c.y)}</td><td style="text-align:right;font-family:var(--font-mono)">${ff(c.q)}</td><td style="color:var(--text-muted);font-size:11px">${c.t}</td></tr>`).join('');
+document.getElementById('spend-cat-table').innerHTML=[{c:'Restaurants',m:1012,t:7087,p:43.7},{c:'Groceries',m:537,t:3756,p:23.2},{c:'Farmers Market',m:146,t:1019,p:6.3},{c:'Travel',m:125,t:874,p:5.4},{c:'Home',m:79,t:551,p:3.4},{c:'Clothing',m:74,t:516,p:3.2},{c:'Specialty Foods',m:68,t:474,p:2.9},{c:'Gym/Fitness',m:57,t:400,p:2.5},{c:'All other',m:217,t:1528,p:9.4}].map(c=>`<tr><td>${c.c}</td><td style="text-align:right;font-family:var(--font-mono)">$${c.m}</td><td style="text-align:right;font-family:var(--font-mono)">$${c.t.toLocaleString()}</td><td style="text-align:right;color:var(--text-muted)">${c.p}%</td></tr>`).join('');
 
-// Pay growth chart
-const cx2=document.getElementById('c-pay');if(cx2&&!CI['c-pay'])CI['c-pay']=new Chart(cx2,{type:'line',data:{labels:['15','16','17','18','19','20','21','22','23','24','25'],datasets:[{label:'Gross (Jon)',data:[169144,198857,182281,204199,216136,226356,222482,246285,229029,216537,248348],borderColor:'#4a7a9a',backgroundColor:'rgba(74,122,154,0.06)',fill:true,tension:.3,pointRadius:4,pointBackgroundColor:'#4a7a9a',borderWidth:2},{label:'Net',data:[109297,118177,108179,121563,127350,142599,147910,139088,147441,136847,157832],borderColor:'#5a8a6a',backgroundColor:'rgba(90,138,106,0.06)',fill:true,tension:.3,pointRadius:4,pointBackgroundColor:'#5a8a6a',borderWidth:2}]},options:{responsive:true,plugins:{tooltip:{...TT,callbacks:{label:c=>c.dataset.label+': '+ff(c.raw)}}},scales:{y:{ticks:{callback:v=>fmt(v)},grid:{color:'rgba(0,0,0,0.04)'}},x:{grid:{display:false}}}}});
-D.cf=true;}
+const cx2=document.getElementById('c-pay');if(cx2&&!CI['c-pay'])CI['c-pay']=new Chart(cx2,{type:'line',data:{labels:['15','16','17','18','19','20','21','22','23','24','25'],datasets:[{label:'Gross (Jon)',data:[169144,198857,182281,204199,216136,226356,222482,246285,229029,216537,248348],borderColor:'#4a7a9a',backgroundColor:'rgba(74,122,154,0.06)',fill:true,tension:.3,pointRadius:4,pointBackgroundColor:'#4a7a9a',borderWidth:2},{label:'Net',data:[109297,118177,108179,121563,127350,142599,147910,139088,147441,136847,157832],borderColor:'#5a8a6a',backgroundColor:'rgba(90,138,106,0.06)',fill:true,tension:.3,pointRadius:4,pointBackgroundColor:'#5a8a6a',borderWidth:2}]},options:{responsive:true,plugins:{tooltip:{...TT,callbacks:{label:c=>c.dataset.label+': '+ff(c.raw)}}},scales:{y:{ticks:{callback:v=>fmt(v)},grid:{color:'rgba(0,0,0,0.04)'}},x:{grid:{display:false}}}}});D.cf=true;}
 
-/* ═══════ RISK ═══════ */
 function initRisk(){if(D.rk)return;updB();
-// BTC implied price from Empower = ~$57,800 ($458,130 / 7.931)
-const nB=1862000-458130; // non-BTC net worth
+// Non-BTC net worth = $1,862,000 - $458,130 = $1,403,870
+const nB=1403870;
 const cx=document.getElementById('c-stress');if(cx&&!CI['c-stress'])CI['c-stress']=new Chart(cx,{type:'bar',data:{labels:['$10K','$25K','$50K','$58K','$100K','$150K','$200K','$250K'],datasets:[{data:[10000,25000,50000,57800,100000,150000,200000,250000].map(p=>nB+7.931*p),backgroundColor:[10000,25000,50000,57800,100000,150000,200000,250000].map(p=>p<50000?'rgba(184,110,94,0.25)':p<100000?'rgba(196,154,90,0.25)':'rgba(90,138,106,0.25)'),borderColor:[10000,25000,50000,57800,100000,150000,200000,250000].map(p=>p<50000?'#b86e5e':p<100000?'#c49a5a':'#5a8a6a'),borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>ff(Math.round(c.raw))}}},scales:{y:{ticks:{callback:v=>fmt(v)},grid:{color:'rgba(0,0,0,0.04)'}},x:{grid:{display:false}}}}});
 
-// Net worth history — updated
-const nwD=[{d:'Feb 22',nw:675697,btc:38700},{d:'Nov 22',nw:466752,btc:20484},{d:'Feb 23',nw:557089,btc:23726},{d:'Jan 24',nw:794365,btc:42625},{d:'Mar 24',nw:1043196,btc:68340},{d:'Jan 25',nw:1356140,btc:94680},{d:'Oct 25',nw:1873669,btc:121505},{d:'Jan 26',nw:2067596,btc:97299},{d:'Feb 26',nw:1927631,btc:72487},{d:'Mar 26',nw:1862000,btc:57800}];
+// Updated NW history with 3/31/2026 data point
+const nwD=[{d:'Feb 22',nw:675697,btc:38700},{d:'Nov 22',nw:466752,btc:20484},{d:'Feb 23',nw:557089,btc:23726},{d:'Jan 24',nw:794365,btc:42625},{d:'Mar 24',nw:1043196,btc:68340},{d:'Jan 25',nw:1356140,btc:94680},{d:'Oct 25',nw:1873669,btc:121505},{d:'Jan 26',nw:2067596,btc:97299},{d:'Mar 26',nw:1862000,btc:57800}];
 const cx2=document.getElementById('c-nw');if(cx2&&!CI['c-nw'])CI['c-nw']=new Chart(cx2,{type:'line',data:{labels:nwD.map(d=>d.d),datasets:[{label:'Net Worth',data:nwD.map(d=>d.nw),borderColor:'#5a8a6a',backgroundColor:'rgba(90,138,106,0.08)',fill:true,tension:.35,pointRadius:5,pointBackgroundColor:'#5a8a6a',borderWidth:2.5,yAxisID:'y'},{label:'BTC',data:nwD.map(d=>d.btc),borderColor:'#c49a5a80',pointBackgroundColor:'#c49a5a',pointRadius:4,borderWidth:1.5,borderDash:[4,4],fill:false,tension:.35,yAxisID:'y1'}]},options:{responsive:true,plugins:{tooltip:{...TT,callbacks:{label:c=>c.dataset.label+(c.datasetIndex===0?': '+ff(Math.round(c.raw)):': $'+Math.round(c.raw/1e3)+'K')}}},scales:{y:{position:'left',ticks:{callback:v=>fmt(v)},grid:{color:'rgba(0,0,0,0.04)'}},y1:{position:'right',ticks:{callback:v=>'$'+Math.round(v/1e3)+'K',color:'#c49a5a80'},grid:{display:false}}}}});
 
-// Beneficiary list — updated with Empower 3/31 values and Lenora 401k fix
+// Updated beneficiary list with 3/31/2026 values
 document.getElementById('bene-list').innerHTML=[
-{n:'Jon: TSA',v:'$421K',s:1},{n:'Jon: Plan B',v:'$187K',s:1},{n:'Jon: 401k',v:'$66K',s:1},{n:'Jon: Roth IRA',v:'$11K',s:1},
-{n:'Jon: PCRA Pre-Tax',v:'$59K',s:1},{n:'Jon: PCRA Roth',v:'$10K',s:1},{n:'Jon: Fidelity Annuity',v:'$36K',s:1},
-{n:'Jon: Fidelity Ret',v:'$3K',s:1},{n:'Jon: Fidelity Brok',v:'$2K',s:1},{n:'Jon: Schwab Chk',v:'$3K',s:1},
-{n:'Lenora: 401k',v:'$120K',s:1},{n:'Lenora: Betterment Trad',v:'$126K',s:1},{n:'Lenora: Betterment Roth',v:'$16K',s:1},
-{n:'Lenora: Vanguard Roth',v:'$2K',s:1},{n:'Lenora: Patelco',v:'$9K',s:1},{n:'Jon: Pension',v:'DB plan',s:1},
+{n:'Jon: TSA',v:'$421K',s:1},{n:'Jon: Plan B',v:'$187K',s:1},{n:'Jon: 401k',v:'$66K',s:1},{n:'Jon: Roth IRA',v:'$11K',s:1},{n:'Jon: PCRA Pre-Tax',v:'$59K',s:1},{n:'Jon: PCRA Roth',v:'$10K',s:1},{n:'Jon: Fidelity Annuity',v:'$36K',s:1},{n:'Jon: Fidelity Ret',v:'$3K',s:1},{n:'Jon: Fidelity Brok',v:'$2K',s:1},{n:'Jon: Schwab Chk',v:'$3K',s:1},
+{n:'Lenora: 401k',v:'$120K',s:1},{n:'Lenora: Betterment Trad',v:'$126K',s:1},{n:'Lenora: Betterment Roth',v:'$16K',s:1},{n:'Lenora: Vanguard Roth',v:'$2K',s:1},{n:'Lenora: Patelco',v:'$9K',s:1},
 {n:'Jon: MetLife',v:'$300K face',s:0},{n:'Lenora: MetLife',v:'$400K face',s:0},
-{n:'Jon: Strike',v:'$49K',s:0},{n:'Lenora: Strike',v:'$230K',s:0},{n:'Jon: Cold Storage',v:'$180K',s:0}
-].map(b=>`<div class="bene-row"><div class="bene-icon">${b.s?'✅':'⬜'}</div><div class="bene-name">${b.n}</div><div class="bene-val">${b.v}</div></div>`).join('');
-D.rk=true;}
+{n:'Jon: Strike',v:'$49K',s:0},{n:'Lenora: Strike',v:'$230K',s:0},{n:'Jon: Cold Storage',v:'$180K',s:0},{n:'Jon: Pension',v:'DB plan',s:0}
+].map(b=>`<div class="bene-row"><div class="bene-icon">${b.s?'✅':'⬜'}</div><div class="bene-name">${b.n}</div><div class="bene-val">${b.v}</div></div>`).join('');D.rk=true;}
 
-function updB(){const p=+document.getElementById('b-sld').value;document.getElementById('b-disp').textContent=ff(p);const v=7.931*p,nB=1862000-458130,nw=nB+v,d=nw-1862000;document.getElementById('b-stats').innerHTML=`<div class="stat"><div class="s-label">BTC value (7.931)</div><div class="s-val" style="font-size:20px;color:var(--amber)">${fmt(Math.round(v))}</div></div><div class="stat"><div class="s-label">Net worth</div><div class="s-val" style="font-size:20px;color:var(--green)">${fmt(Math.round(nw))}</div></div><div class="stat"><div class="s-label">Δ from current</div><div class="s-val" style="font-size:20px;color:var(${d>=0?'--green':'--red'})">${d>=0?'+':''}${fmt(Math.round(d))}</div></div>`;}
+function updB(){const p=+document.getElementById('b-sld').value;document.getElementById('b-disp').textContent=ff(p);const v=7.931*p,nB=1403870,nw=nB+v,d=nw-1862000;document.getElementById('b-stats').innerHTML=`<div class="stat"><div class="s-label">BTC value (7.931)</div><div class="s-val" style="font-size:20px;color:var(--amber)">${fmt(Math.round(v))}</div></div><div class="stat"><div class="s-label">Net worth</div><div class="s-val" style="font-size:20px;color:var(--green)">${fmt(Math.round(nw))}</div></div><div class="stat"><div class="s-label">Δ from current</div><div class="s-val" style="font-size:20px;color:var(${d>=0?'--green':'--red'})">${d>=0?'+':''}${fmt(Math.round(d))}</div></div>`;}
 
-/* ═══════ ACTIONS ═══════ */
 function initActions(){if(D.ac)return;const mk=(items,cls)=>items.map(i=>`<div class="alrt ${cls}"><div><div class="at">${i.t}</div><div class="ad">${i.d}</div></div></div>`).join('');
 document.getElementById('a-done').innerHTML=mk([
 {t:'Plan B → 10% after-tax',d:'WEBB20260790182D · 04/10/2026'},
-{t:'TSA → 0% pre-tax / 9% Roth',d:'WEBB2026079018309D · 04/10/2026'},
-{t:'Lenora Roth 401(k) → 9% pre-tax / 1% Roth',d:'Conf. 2026090005442D · 04/10/2026. 5yr clock: Jan 1, 2026 → Dec 31, 2030.'},
+{t:'TSA → 9% Roth',d:'WEBB2026079018309D · 04/10/2026'},
+{t:'Lenora 401k → 9% pre-tax / 1% Roth',d:'Conf. 2026090005442D · 04/10/2026'},
 {t:'Beneficiaries — Jon (10 accounts)',d:'Vanguard, Fidelity, Schwab · 3/28/2026'},
-{t:'Beneficiaries — Lenora (5 accounts)',d:'Vanguard 401k, Betterment ×2, Vanguard Roth, Patelco · 3/28/2026'},
+{t:'Beneficiaries — Lenora (5 accounts)',d:'Vanguard 401k, Betterment, Vanguard Roth, Patelco · 3/28/2026'},
 {t:'Plan B after-tax balance verified',d:'~$3,900 via Vanguard call'},
 {t:'SPD (219p) + CBA (132p) reviewed',d:'All findings extracted'},
 {t:'2024 tax return analyzed',d:'AGI $311K, 24% bracket'},
 {t:'Jon SS statement analyzed',d:'FRA $4,260 stated, $3,000-3,400 adj'},
-{t:'Jon & Lenora Empower deep-dives',d:'21,080 + 2,060 transactions analyzed. All balances reconciled 3/31/2026.'},
-{t:'Auto insurance resolved — both',d:'Jon Tesla $1,811/yr · Lenora AAA $1,961/yr'}
+{t:'Student loan strategy overhauled',d:'SAVE ended → IBR. ~80 payments made. MFS saves ~$22K/yr.'},
+{t:'Strike 1099-DA analyzed (2025)',d:'Jon: -$5K loss. Lenora: spousal transfer adjustments needed.'},
+{t:'Jon & Lenora Empower deep-dives',d:'21K + 2K transactions analyzed. All balances reconciled 3/31/2026.'},
+{t:'Auto insurance resolved',d:'Jon Tesla $1,811/yr · Lenora AAA $1,961/yr'}
 ],'s');
 document.getElementById('a-now').innerHTML=mk([
+{t:'⚠️ Rebuild emergency fund → $25K',d:'Schwab checking depleted to $3,444. BTC buys, poker, rodent damage drained $16K+.'},
 {t:'Term life — Jon',d:'$1-1.5M 20yr outside Kaiser. ~$50-80/mo.'},
 {t:'Estate planning',d:'Trust, wills, POA, guardians. $2.5-4K. Cold BTC key plan.'},
 {t:'MetLife beneficiary — both',d:'mykp.kp.org or 888-420-1661 prompt 5.'},
-{t:'Rebuild emergency fund → $25K',d:'Currently $12.1K ($3.4K Jon + $8.7K Lenora). Depleted by BTC buys, poker, rodent damage.'},
-{t:'Pay Capital One $27.4K',d:'0% expires Sep 2026. ~$5,500/mo.'}
+{t:'Pay Capital One $27.4K',d:'0% expires Sep 2026. 5 months left.'},
+{t:'Finish 2025 tax return',d:'Blocking on Ignition poker loss history. All other docs uploaded to TurboTax.'}
 ],'c');
 document.getElementById('a-year').innerHTML=mk([
 {t:'LTD 60% — Jon',d:'At open enrollment. After-tax premiums.'},
-{t:'Lenora 401k → 14%+',d:'$10K room under limit.'},
 {t:'Lenora W-4 review',d:'Single → MFJ?'},
+{t:'Lenora 401k → 14%+',d:'$10K room under limit.'},
 {t:'Umbrella $1-2M',d:'$200-400/yr.'},
 {t:'Lenora SS statement',d:'Call SSA.'},
-{t:'Reconnect Patelco in Empower',d:'Disconnected since 1/14/2026.'},
-{t:'Rodent damage insurance claim?',d:'$21K total (pest + electrical). Check CA FAIR Plan / AAA coverage.'}
+{t:'2026 MFJ vs MFS decision',d:'When IBR active, MFS saves ~$22K/yr net.'},
+{t:'Reconnect Patelco to Empower',d:'Disconnected since 1/14/2026.'}
 ],'w');
 document.getElementById('a-sep').innerHTML=mk([
 {t:'Roll Plan B after-tax → Roth IRA',d:'Tax-free. Gains/employer → Trad.'},
 {t:'Roll TSA to IRA',d:'$421K+. Partial Roth conversion.'},
 {t:'Fidelity annuity 1035',d:'Check fees.'},
-{t:'Pension FAMC estimate',d:'Call Fidelity 866-602-0411.'},
+{t:'Pension FAMC estimate',d:'Call Fidelity.'},
 {t:'Consolidate to 2-3 institutions',d:'Target: Vanguard + Schwab + Strike.'},
 {t:'In-service Plan B rollover?',d:'After-tax → Roth while employed?'}
 ],'i');D.ac=true;}
 
-/* ═══════ TRACKER ═══════ */
 function initTracker(){if(D.tk)return;
 document.getElementById('tk-done').innerHTML=[
-'Lenora Roth 401(k) activated: 9% pre-tax / 1% Roth (04/10/2026, conf. 2026090005442D)',
-'Plan B 10% after-tax (04/10/2026, conf. WEBB20260790182D)',
-'TSA 0% pre-tax / 9% Roth (04/10/2026, conf. WEBB2026079018309D)',
-'Plan B balance: ~$3,900 after-tax confirmed',
-'Beneficiaries: Jon 10 accts, Lenora 5 accts (3/28/2026)',
-'2024 tax return (AGI $311K, 24%)',
-'Jon SS statement (FRA $4,260, adj $3,000-3,400)',
-'SPD (219p) + CBA (132p) read & extracted',
-'Student loans: 20yr IDR confirmed, $273K balance',
-'SRIP ineligible (CBA ¶1440) — corrected',
-'Match corrected: 3% (CBA ¶1428)',
-'Both W-2s + pay stubs analyzed',
-'Jon & Lenora Empower deep-dives completed',
-'Auto insurance: both resolved (Tesla $1,811 + AAA $1,961)',
-'Household spending validated (~$117K/yr)',
-'All account balances reconciled to Empower 3/31/2026'
+'Plan B 10% (04/10/2026)','TSA 9% Roth (04/10/2026)','Lenora 401k 9%/1% Roth (04/10/2026)',
+'Plan B balance: ~$3,900','Beneficiaries: Jon 10, Lenora 5 (3/28/2026)',
+'2024 tax return (AGI $311K, 24%)','Jon SS statement',
+'SPD (219p) + CBA (132p) read','Student loans: IBR confirmed (SAVE ended)',
+'SRIP ineligible (CBA ¶1440)','Match corrected: 3% (CBA ¶1428)',
+'Both W-2s + pay stubs analyzed','Spending validated (~$117K/yr)',
+'Jon & Lenora Empower deep-dives (3/31/2026)',
+'Auto insurance: Tesla $1,811 + AAA $1,961',
+'Strike 2025 1099-DA analysis'
 ].map(d=>`<div class="cf-row"><span class="cf-check">✓</span><span style="flex:1;color:var(--text-mid)">${d}</span></div>`).join('');
 
 document.getElementById('tk-todo').innerHTML=[
-'Term life $1-1.5M — Jon',
-'Rebuild emergency fund → $25K',
-'LTD 60% at open enrollment — Jon',
-'Estate attorney ($2.5-4K)',
-'MetLife beneficiaries — both',
-'Lenora 401k → 14%+',
-'Lenora W-4 review',
-'Umbrella $1-2M',
-'Lenora SS statement',
-'Capital One $27.4K (Sep 2026)',
-'Reconnect Patelco in Empower',
-'Fee-only planner consult?'
+'Rebuild e-fund → $25K HYSA','Term life $1-1.5M — Jon','LTD 60% at open enrollment — Jon',
+'Estate attorney ($2.5-4K)','MetLife beneficiaries — both',
+'Lenora 401k → 14%+','Lenora W-4 review','Lenora SS statement',
+'Umbrella $1-2M','Capital One $27.4K (Sep 2026)',
+'Finish 2025 tax return (Ignition history)','2026 MFJ vs MFS decision',
+'Reconnect Patelco to Empower','Fee-only planner consult?'
 ].map((t,i)=>`<div class="chk-item" onclick="this.classList.toggle('done');this.querySelector('.chk-box').textContent=this.classList.contains('done')?'✓':''"><div class="chk-box"></div><span>${t}</span></div>`).join('');
 
-const qs=[
-{t:'Plan B in-service rollover to Roth?',d:'In-service mega backdoor while employed.',cat:'Plan',cc:'--blue'},
-{t:'Retiree medical lock-in at separation?',d:'55+ AND 15yr per SPD — verify deferred access.',cat:'Benefits',cc:'--cyan'},
+document.getElementById('tk-q').innerHTML=[
+{t:'Plan B in-service rollover to Roth?',d:'In-service mega backdoor.',cat:'Plan',cc:'--blue'},
+{t:'Retiree medical lock-in at separation?',d:'55+ AND 15yr per SPD.',cat:'Benefits',cc:'--cyan'},
 {t:'Jon FAMC?',d:'Call Fidelity 866-602-0411.',cat:'Pension',cc:'--amber'},
 {t:'Fidelity annuity 1035?',d:'Surrender charges? M&E?',cat:'Annuity',cc:'--orange'},
-{t:'Fee-only planner?',d:'Roth + ACA cliff. One-time $500-2K consult.',cat:'Strategy',cc:'--purple'},
-{t:'Jon LTD truly waived?',d:'Verify with NHRSC.',cat:'Insurance',cc:'--red'},
-{t:'Poker income tax treatment?',d:'~$100K win is taxable. ~$17K buy-ins deductible if itemizing. 2025 AGI impact.',cat:'Tax',cc:'--amber'},
-{t:'Student loan payments from Schwab?',d:'$1,191/mo Aug+Sep 2025. Lenora\'s loans or Jon\'s?',cat:'Loans',cc:'--red'},
-{t:'Rodent damage insurance claim?',d:'$21K total. CA FAIR Plan or AAA/CSAA coverage?',cat:'Insurance',cc:'--red'}
-];
-document.getElementById('oq-count').textContent=qs.length;
-document.getElementById('tk-q').innerHTML=qs.map(q=>`<div class="qcard" style="border-left-color:var(${q.cc})"><div style="flex:1"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="qt">${q.t}</span><span class="badge" style="color:var(${q.cc});background:var(${q.cc}-bg);border:.5px solid var(${q.cc}-border)">${q.cat}</span></div><div class="qd">${q.d}</div></div></div>`).join('');
+{t:'Confirm Lenora IDR payment count',d:'Call MOHELA to verify ~80 qualifying payments.',cat:'Loans',cc:'--red'}
+].map(q=>`<div class="qcard" style="border-left-color:var(${q.cc})"><div style="flex:1"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="qt">${q.t}</span><span class="badge" style="color:var(${q.cc});background:var(${q.cc}-bg);border:.5px solid var(${q.cc}-border)">${q.cat}</span></div><div class="qd">${q.d}</div></div></div>`).join('');
 
 document.getElementById('tk-cf').innerHTML='<div class="card cf-list">'+[
-{f:'Pension: 1.5% × FAMC × Credited Service',s:'SPD p.115'},
-{f:'FAMC: best 60mo / last 120mo',s:'SPD p.115'},
-{f:'Early ret: 55+15yr OR Rule of 75',s:'SPD p.117'},
-{f:'Early ret reduction: 100%@65, 85%@60, 60%@55',s:'SPD p.117'},
-{f:'Lump sum rollable to IRA/Roth',s:'SPD p.120'},
-{f:'Plan B: 5% employer + 1-10% after-tax',s:'SPD p.125'},
-{f:'Plan B: 100% vested',s:'SPD p.127'},
-{f:'Plan B: after-tax withdrawals in-service',s:'SPD p.130'},
-{f:'Plan B: Roth rollovers permitted',s:'SPD p.133'},
-{f:'TSA: Roth in-plan conversions',s:'SPD p.136'},
-{f:'TSA: $72K annual addition limit',s:'SPD p.139'},
-{f:'Retiree medical: 55+15yr, no subsidy post-2014',s:'SPD p.148'},
-{f:'HRA: $2,500/yr service + $10K at 85',s:'SPD p.152'},
+{f:'Pension: 1.5% × FAMC × Service',s:'SPD p.115'},{f:'FAMC: best 60mo / last 120mo',s:'SPD p.115'},
+{f:'Early ret: 55+15yr OR Rule of 75',s:'SPD p.117'},{f:'Lump sum rollable to IRA/Roth',s:'SPD p.120'},
+{f:'Plan B: 5% employer + 1-10% after-tax',s:'SPD p.125'},{f:'Plan B: 100% vested',s:'SPD p.127'},
+{f:'Plan B: after-tax withdrawals in-service',s:'SPD p.130'},{f:'Plan B: Roth rollovers permitted',s:'SPD p.133'},
+{f:'TSA: Roth in-plan conversions',s:'SPD p.136'},{f:'TSA: $72K annual addition limit',s:'SPD p.139'},
+{f:'Retiree medical: 55+15yr, no subsidy post-2014',s:'SPD p.148'},{f:'HRA: $2,500/yr + $10K at 85',s:'SPD p.152'},
 {f:'Separation required for distributions',s:'SPD p.205'},
-{f:'Lenora 401k: 6%+3%=9% employer',s:'CBA ¶1428'},
-{f:'Lenora: NOT SRIP eligible (post-2009)',s:'CBA ¶1440'},
-{f:'Lenora: Roth 401(k) since Jan 2020',s:'CBA ¶1438'},
-{f:'Lenora: no pension (post-2009)',s:'CBA/SPD'}
+{f:'Lenora 401k: 6%+3%=9% employer',s:'CBA ¶1428'},{f:'Lenora: NOT SRIP eligible',s:'CBA ¶1440'},
+{f:'Lenora: Roth 401(k) since Jan 2020',s:'CBA ¶1438'},{f:'Lenora: no pension (post-2009)',s:'CBA/SPD'}
 ].map(c=>`<div class="cf-row"><span class="cf-check">✓</span><span style="flex:1">${c.f}</span><span class="cf-src">${c.s}</span></div>`).join('')+'</div>';
 
 document.getElementById('tk-phases').innerHTML=[
@@ -659,24 +619,17 @@ document.getElementById('tk-phases').innerHTML=[
 {n:'Retirement Sequencing',s:'In progress',c:'--amber'},
 {n:'Risk Assessment',s:'✅ Complete',c:'--green'},
 {n:'Action Plan',s:'In progress',c:'--amber'}
-].map((p,i)=>`<div class="phase-row"><div class="phase-num">${i+1}</div><div class="phase-name">${p.n}</div><div style="font-size:11px;color:var(${p.c});font-weight:500">${p.s}</div></div>`).join('');
-D.tk=true;}
+].map((p,i)=>`<div class="phase-row"><div class="phase-num">${i+1}</div><div class="phase-name">${p.n}</div><div style="font-size:11px;color:var(${p.c});font-weight:500">${p.s}</div></div>`).join('');D.tk=true;}
 
-/* ═══════ PENSION HISTORY (lazy) ═══════ */
-function initPenHist(){
-const h=[{d:'Jan 2021',yrs:6,m:1406,ls:195335},{d:'Sep 2023',yrs:10,m:2564,ls:381241},{d:'Jan 2024',yrs:10,m:2915,ls:415936},{d:'Jan 2026',yrs:12,m:3344,ls:491998}];
-const cx=document.getElementById('c-penhist');if(cx&&!CI['c-penhist'])CI['c-penhist']=new Chart(cx,{type:'line',data:{labels:h.map(x=>x.d),datasets:[{label:'Lump Sum',data:h.map(x=>x.ls),borderColor:'#c49a5a',backgroundColor:'rgba(196,154,90,0.08)',fill:true,tension:.4,pointRadius:6,pointBackgroundColor:'#c49a5a',borderWidth:2.5,yAxisID:'y'},{label:'Monthly',data:h.map(x=>x.m),borderColor:'#4a8a9a',pointBackgroundColor:'#4a8a9a',pointRadius:6,fill:false,tension:.4,borderWidth:2.5,yAxisID:'y1'}]},options:{responsive:true,plugins:{tooltip:{...TT,callbacks:{label:c=>c.dataset.label+(c.datasetIndex===0?': '+ff(Math.round(c.raw)):': $'+Math.round(c.raw)+'/mo')}}},scales:{y:{position:'left',ticks:{callback:v=>fmt(v)},grid:{color:'rgba(0,0,0,0.04)'}},y1:{position:'right',ticks:{callback:v=>'$'+v.toLocaleString()+'/mo',color:'#4a8a9a80'},grid:{display:false}}}}});
-document.getElementById('pen-hist-table').innerHTML=h.map(r=>{const fv=Math.round(r.ls*Math.pow(1.07,65-(r.yrs===6?31:r.yrs===12?37:r.yrs===10?35:35)));const w=Math.round(fv*.04)>r.m*12;return`<tr><td style="font-weight:500">${r.d}</td><td>${r.yrs}</td><td>${r.yrs===6?31:r.yrs===12?37:35}</td><td style="text-align:right;font-family:var(--font-mono);color:var(--cyan)">$${r.m.toLocaleString()}</td><td style="text-align:right;font-family:var(--font-mono);color:var(--amber)">${ff(r.ls)}</td><td style="text-align:right;font-family:var(--font-mono)">${fmt(fv)}</td><td style="color:var(${w?'--green':'--amber'});font-weight:500">${w?'Yes':'Close'}</td></tr>`;}).join('');}
+function initPenHist(){const h=[{d:'Jan 2021',yrs:6,m:1406,ls:195335},{d:'Sep 2023',yrs:10,m:2564,ls:381241},{d:'Jan 2024',yrs:10,m:2915,ls:415936},{d:'Jan 2026',yrs:12,m:3344,ls:491998}];const cx=document.getElementById('c-penhist');if(cx&&!CI['c-penhist'])CI['c-penhist']=new Chart(cx,{type:'line',data:{labels:h.map(x=>x.d),datasets:[{label:'Lump Sum',data:h.map(x=>x.ls),borderColor:'#c49a5a',backgroundColor:'rgba(196,154,90,0.08)',fill:true,tension:.4,pointRadius:6,pointBackgroundColor:'#c49a5a',borderWidth:2.5,yAxisID:'y'},{label:'Monthly',data:h.map(x=>x.m),borderColor:'#4a8a9a',pointBackgroundColor:'#4a8a9a',pointRadius:6,fill:false,tension:.4,borderWidth:2.5,yAxisID:'y1'}]},options:{responsive:true,plugins:{tooltip:{...TT,callbacks:{label:c=>c.dataset.label+(c.datasetIndex===0?': '+ff(Math.round(c.raw)):': $'+Math.round(c.raw)+'/mo')}}},scales:{y:{position:'left',ticks:{callback:v=>fmt(v)},grid:{color:'rgba(0,0,0,0.04)'}},y1:{position:'right',ticks:{callback:v=>'$'+v.toLocaleString()+'/mo',color:'#4a8a9a80'},grid:{display:false}}}}});
+document.getElementById('pen-hist-table').innerHTML=h.map(r=>{const fv=Math.round(r.ls*Math.pow(1.07,65-(r.yrs===6?31:r.yrs===12?37:35)));const w=Math.round(fv*.04)>r.m*12;return`<tr><td style="font-weight:500">${r.d}</td><td>${r.yrs}</td><td>${r.yrs===6?31:r.yrs===12?37:35}</td><td style="text-align:right;font-family:var(--font-mono);color:var(--cyan)">$${r.m.toLocaleString()}</td><td style="text-align:right;font-family:var(--font-mono);color:var(--amber)">${ff(r.ls)}</td><td style="text-align:right;font-family:var(--font-mono)">${fmt(fv)}</td><td style="color:var(${w?'--green':'--amber'});font-weight:500">${w?'Yes':'Close'}</td></tr>`;}).join('');}
 
 function lz(xid,fn){const ob=new MutationObserver(()=>{const el=document.getElementById(xid);if(el?.classList.contains('open'))fn();});setTimeout(()=>{const el=document.getElementById(xid);if(el)ob.observe(el,{attributes:true,attributeFilter:['class']});},200);}
 
-// IRA growth — updated values
-lz('x-ira',()=>{const d=[{d:'Sep 24',v:802635},{d:'Jan 25',v:803922},{d:'May 25',v:880456},{d:'Oct 25',v:1002447},{d:'Feb 26',v:1031320},{d:'Mar 26',v:1018000}];const x=document.getElementById('c-ira');if(!x||CI['c-ira'])return;CI['c-ira']=new Chart(x,{type:'line',data:{labels:d.map(x=>x.d),datasets:[{data:d.map(x=>x.v),borderColor:'#5a8a6a',backgroundColor:'rgba(90,138,106,0.08)',fill:true,tension:.4,pointRadius:5,pointBackgroundColor:'#5a8a6a',borderWidth:2.5}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>ff(Math.round(c.raw))}}},scales:{y:{min:700000,ticks:{callback:v=>fmt(v)},grid:{color:'rgba(0,0,0,0.04)'}},x:{grid:{display:false}}}}});});
+lz('x-ira',()=>{const d=[{d:'Sep 24',v:802635},{d:'Jan 25',v:803922},{d:'May 25',v:880456},{d:'Oct 25',v:1002447},{d:'Mar 26',v:1017942}];const x=document.getElementById('c-ira');if(!x||CI['c-ira'])return;CI['c-ira']=new Chart(x,{type:'line',data:{labels:d.map(x=>x.d),datasets:[{data:d.map(x=>x.v),borderColor:'#5a8a6a',backgroundColor:'rgba(90,138,106,0.08)',fill:true,tension:.4,pointRadius:5,pointBackgroundColor:'#5a8a6a',borderWidth:2.5}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>ff(Math.round(c.raw))}}},scales:{y:{min:700000,ticks:{callback:v=>fmt(v)},grid:{color:'rgba(0,0,0,0.04)'}},x:{grid:{display:false}}}}});});
 
 lz('x-btca',()=>{const d=[{d:'Feb 22',b:3.14},{d:'Feb 23',b:2.146},{d:'Jan 24',b:2.046},{d:'Jan 25',b:2.652},{d:'Mar 26',b:4.244}];const x=document.getElementById('c-btca');if(!x||CI['c-btca'])return;CI['c-btca']=new Chart(x,{type:'line',data:{labels:d.map(x=>x.d),datasets:[{data:d.map(x=>x.b),borderColor:'#c49a5a',backgroundColor:'rgba(196,154,90,0.08)',fill:true,tension:.4,pointRadius:5,pointBackgroundColor:'#c49a5a',borderWidth:2.5}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>c.raw+' BTC'}}},scales:{y:{min:1.5,max:4.5,grid:{color:'rgba(0,0,0,0.04)'}},x:{grid:{display:false}}}}});});
 
 lz('x-penhist',initPenHist);
-
-const IT={overview:initOverview,tax:initTax,retirement:initRetirement,cashflow:initCashflow,risk:initRisk,actions:initActions,tracker:initTracker};
-initOverview();
+const IT={overview:initOverview,tax:initTax,retirement:initRetirement,cashflow:initCashflow,risk:initRisk,actions:initActions,tracker:initTracker};initOverview();
 </script></body></html>
