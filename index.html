@@ -163,7 +163,7 @@ tr:hover td{background:var(--bg-inset)}
 }
 </style></head><body>
 
-<div class="header"><div class="header-inner"><div><h1>Warta Household</h1><div class="sub">Financial overview · v8.0</div></div><div class="header-meta"><div class="live">April 2026</div><div>NW $1.86M</div><div>BTC 7.931</div></div></div></div>
+<div class="header"><div class="header-inner"><div><h1>Warta Household</h1><div class="sub">Financial overview · v8.1</div></div><div class="header-meta"><div class="live">April 2026</div><div>NW $1.86M</div><div>BTC 7.931</div></div></div></div>
 
 <div class="nav"><div class="nav-inner">
 <button class="nav-btn active" data-tab="overview">Portfolio</button>
@@ -266,6 +266,55 @@ tr:hover td{background:var(--bg-inset)}
 <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:0" id="r-stats"></div>
 <p style="color:var(--text-muted);font-size:11px;margin-top:12px">$114K room in the 24% bracket. In early retirement, convert $383K+ before hitting 32%.</p>
 </div>
+
+<div class="sec"><span class="sec-text">Strike / BTC operations — 2025 <span class="new-tag">new</span></span></div>
+
+<div class="stat-grid">
+<div class="stat"><div class="s-label">Jon purchased</div><div class="s-val" style="font-size:20px;color:var(--amber)">1.258 BTC</div><div class="s-sub">$127,766 cost · via Strike</div></div>
+<div class="stat"><div class="s-label">Jon sold (bill pay)</div><div class="s-val" style="font-size:20px;color:var(--red)">1.073 BTC</div><div class="s-sub">$105,613 proceeds</div></div>
+<div class="stat"><div class="s-label">Net accumulated</div><div class="s-val" style="font-size:20px;color:var(--green)">+0.353 BTC</div><div class="s-sub">Net accumulation</div></div>
+<div class="stat"><div class="s-label">Realized loss</div><div class="s-val" style="font-size:20px;color:var(--green)">-$5,036</div><div class="s-sub">Short-term · favorable</div></div>
+</div>
+
+<div class="exp" id="x-strike"><div class="card" style="border-radius:8px"><button class="exp-head" onclick="xp('x-strike')"><div style="flex:1"><div class="et">Jon's Strike bill-pay breakdown — $105.6K</div><div class="es">12 payees · BTC sold to pay household bills</div></div><span class="chev">▸</span></button><div class="exp-body"><div style="margin-top:14px">
+<div class="tw"><table><thead><tr><th>Payee</th><th style="text-align:right">2025 Total</th><th style="text-align:right">% of Total</th><th style="text-align:right">Avg/Mo</th></tr></thead><tbody id="strike-bills"></tbody></table></div>
+</div></div></div></div>
+
+<div class="exp" id="x-btcflow"><div class="card" style="border-radius:8px"><button class="exp-head" onclick="xp('x-btcflow')"><div style="flex:1"><div class="et">Monthly BTC flow (Jon Strike)</div><div class="es">Deposits, buys, sells, sends, receives by month</div></div><span class="chev">▸</span></button><div class="exp-body"><div style="margin-top:14px">
+<div class="tw"><table><thead><tr><th>Month</th><th style="text-align:right">Deposits</th><th style="text-align:right">BTC Bought</th><th style="text-align:right">BTC Sold</th><th style="text-align:right">Sent Out</th><th style="text-align:right">Received</th><th style="text-align:right">Net BTC</th></tr></thead><tbody id="btc-flow"></tbody></table></div>
+</div></div></div></div>
+
+<div class="exp" id="x-1099da"><div class="card" style="border-radius:8px"><button class="exp-head" onclick="xp('x-1099da')"><div style="flex:1"><div class="et">1099-DA tax summary & Form 8949 <span class="new-tag">critical</span></div><div class="es">Jon + Lenora · Spousal transfer adjustments</div></div><span class="chev">▸</span></button><div class="exp-body"><div style="margin-top:14px">
+<div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:10px">Jon's 1099-DA (Strike / Zap Solutions)</div>
+<div class="tw"><table><thead><tr><th>Category</th><th style="text-align:right">Proceeds</th><th style="text-align:right">Cost Basis</th><th style="text-align:right">Gain/Loss</th><th>8949 Box</th></tr></thead><tbody>
+<tr><td>Short-term, basis not reported</td><td style="text-align:right;font-family:var(--font-mono)">$90,982</td><td style="text-align:right;font-family:var(--font-mono)">$96,018</td><td style="text-align:right;font-family:var(--font-mono);color:var(--green)">-$5,036</td><td>B</td></tr>
+<tr><td>Undetermined holding period</td><td style="text-align:right;font-family:var(--font-mono)">$14,631</td><td style="text-align:right;font-family:var(--font-mono);color:var(--red)">You supply</td><td style="text-align:right;font-family:var(--font-mono);color:var(--amber)">TBD</td><td>H or K</td></tr>
+<tr style="border-top:2px solid var(--border)"><td style="font-weight:500">Total</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500">$105,613</td><td style="text-align:right;font-family:var(--font-mono)">$96,018+</td><td style="text-align:right;font-family:var(--font-mono);color:var(--green)">-$5,036+</td><td></td></tr>
+</tbody></table></div>
+
+<div style="font-size:12px;font-weight:500;color:var(--purple);margin:18px 0 10px">Lenora's 1099-DA — Spousal transfers (IRC §1041)</div>
+<div class="alrt w"><div><div class="at">Strike reported $1,643 gain on Lenora — but these are NON-TAXABLE</div><div class="ad">Both transactions were BTC sent to Jon's Jade wallet (spousal transfers). Report on Form 8949 with adjustment code "N" to zero out the gain. Net reportable: <strong style="color:var(--green)">$0</strong>.</div></div></div>
+<div class="tw"><table><thead><tr><th>Date</th><th style="text-align:right">BTC</th><th style="text-align:right">Proceeds</th><th style="text-align:right">Basis</th><th style="text-align:right">Reported Gain</th><th>Adjustment</th></tr></thead><tbody>
+<tr><td>6/28/2025</td><td style="text-align:right;font-family:var(--font-mono)">0.1014</td><td style="text-align:right;font-family:var(--font-mono)">$10,897</td><td style="text-align:right;font-family:var(--font-mono)">$9,171</td><td style="text-align:right;font-family:var(--font-mono);color:var(--amber)">+$1,726</td><td style="color:var(--green);font-weight:500">→ $0 (code N)</td></tr>
+<tr><td>9/30/2025</td><td style="text-align:right;font-family:var(--font-mono)">0.0742</td><td style="text-align:right;font-family:var(--font-mono)">$8,416</td><td style="text-align:right;font-family:var(--font-mono)">$8,500</td><td style="text-align:right;font-family:var(--font-mono);color:var(--green)">-$84</td><td style="color:var(--green);font-weight:500">→ $0 (code N)</td></tr>
+</tbody></table></div>
+
+<div style="font-size:12px;font-weight:500;color:var(--text);margin:18px 0 10px">Jon's 7 receives — source identification</div>
+<div class="tw"><table><thead><tr><th>Date</th><th style="text-align:right">BTC</th><th>Source</th><th>Basis Treatment</th></tr></thead><tbody>
+<tr><td>3/15</td><td style="text-align:right;font-family:var(--font-mono)">0.0474</td><td><span class="badge" style="color:var(--orange);background:var(--orange-bg);border:.5px solid var(--orange-border)">Ignition</span></td><td style="font-size:11px;color:var(--text-mid)">FMV at receipt (gambling income)</td></tr>
+<tr><td>3/17</td><td style="text-align:right;font-family:var(--font-mono)">0.0844</td><td><span class="badge" style="color:var(--orange);background:var(--orange-bg);border:.5px solid var(--orange-border)">Ignition</span></td><td style="font-size:11px;color:var(--text-mid)">FMV at receipt</td></tr>
+<tr><td>6/28</td><td style="text-align:right;font-family:var(--font-mono)">0.1014</td><td><span class="badge" style="color:var(--orange);background:var(--orange-bg);border:.5px solid var(--orange-border)">Ignition</span></td><td style="font-size:11px;color:var(--text-mid)">FMV at receipt</td></tr>
+<tr><td>8/22</td><td style="text-align:right;font-family:var(--font-mono)">0.0070</td><td><span class="badge" style="color:var(--orange);background:var(--orange-bg);border:.5px solid var(--orange-border)">Ignition</span></td><td style="font-size:11px;color:var(--text-mid)">FMV at receipt</td></tr>
+<tr style="background:var(--purple-bg)"><td style="font-weight:500;color:var(--purple)">9/30</td><td style="text-align:right;font-family:var(--font-mono)">0.0742</td><td><span class="badge" style="color:var(--purple);background:var(--purple-bg);border:.5px solid var(--purple-border)">Lenora</span></td><td style="font-size:11px;color:var(--purple)">Carryover basis $8,500 (IRC §1041)</td></tr>
+<tr><td>10/30</td><td style="text-align:right;font-family:var(--font-mono)">0.0278</td><td><span class="badge" style="color:var(--orange);background:var(--orange-bg);border:.5px solid var(--orange-border)">Ignition</span></td><td style="font-size:11px;color:var(--text-mid)">FMV at receipt</td></tr>
+<tr><td>11/6</td><td style="text-align:right;font-family:var(--font-mono)">0.0246</td><td><span class="badge" style="color:var(--orange);background:var(--orange-bg);border:.5px solid var(--orange-border)">Ignition</span></td><td style="font-size:11px;color:var(--text-mid)">FMV at receipt</td></tr>
+</tbody></table></div>
+
+<div style="font-size:12px;font-weight:500;color:var(--text);margin:18px 0 10px">Lenora's BTC DCA — 2025</div>
+<div class="tw"><table><thead><tr><th>Month</th><th style="text-align:right">Amount</th><th style="text-align:right">Purchases</th><th>Notes</th></tr></thead><tbody id="lenora-dca"></tbody></table></div>
+
+</div></div></div></div>
+
 </div>
 
 <!-- ═══════════ TAB: RETIREMENT ═══════════ -->
@@ -430,7 +479,7 @@ tr:hover td{background:var(--bg-inset)}
 </div>
 
 </div>
-<div class="footer">Warta Household v8.0 · Data: Mar 31, 2026 (Empower) · NW $1.86M · Not financial advice</div>
+<div class="footer">Warta Household v8.1 · Data: Mar 31, 2026 (Empower) · NW $1.86M · Not financial advice</div>
 
 <script>
 document.querySelectorAll('.nav-btn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');setTimeout(()=>IT[b.dataset.tab]?.(),50);});});
@@ -484,7 +533,43 @@ mkD('c-tj','l-tj',[{n:'Pre-Tax',v:772234,p:73,c:'#b86e5e'},{n:'Tax-Def',v:36395,
 mkD('c-tl','l-tl',[{n:'Pre-Tax',v:245708,p:50,c:'#b86e5e'},{n:'Roth',v:18311,p:4,c:'#5a8a6a'},{n:'Taxable',v:229597,p:47,c:'#c49a5a'}]);
 // Household combined
 mkD('c-th','l-th',[{n:'Pre-Tax/Def',v:1054337,p:68,c:'#b86e5e'},{n:'Roth',v:39162,p:3,c:'#5a8a6a'},{n:'Taxable',v:459634,p:30,c:'#c49a5a'}]);
-updR();D.tx=true;}
+updR();
+
+// Strike bill-pay breakdown
+document.getElementById('strike-bills').innerHTML=[
+{p:'Rosegate mortgage',t:44211,pct:41.9,avg:3684},{p:'Patelco transfers',t:22213,pct:21.0,avg:1851},
+{p:'Cardmember Services',t:21785,pct:20.6,avg:1815},{p:'Chase credit cards',t:5508,pct:5.2,avg:459},
+{p:'CA FAIR Plan ins.',t:5351,pct:5.1,avg:446},{p:'Capital One',t:1755,pct:1.7,avg:146},
+{p:'Bramble Trail Farm',t:1635,pct:1.5,avg:136},{p:'Dept of Education',t:1504,pct:1.4,avg:125},
+{p:'Comcast/Xfinity',t:1201,pct:1.1,avg:100},{p:'APG Electric',t:450,pct:0.4,avg:38}
+].map(b=>`<tr><td>${b.p}</td><td style="text-align:right;font-family:var(--font-mono)">$${b.t.toLocaleString()}</td><td style="text-align:right;color:var(--text-muted)">${b.pct}%</td><td style="text-align:right;font-family:var(--font-mono)">$${b.avg.toLocaleString()}</td></tr>`).join('')+`<tr style="border-top:2px solid var(--border)"><td style="font-weight:500">Total</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500;color:var(--amber)">$105,613</td><td style="text-align:right;font-weight:500">100%</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500">$8,801</td></tr>`;
+
+// BTC monthly flow
+document.getElementById('btc-flow').innerHTML=[
+{m:'Jan',dep:5796,buy:0,sell:0.003,out:0.030,rcv:0,net:-0.033},
+{m:'Feb',dep:13245,buy:0.209,sell:0.143,out:0,rcv:0,net:0.066},
+{m:'Mar',dep:10286,buy:0.121,sell:0.067,out:0.029,rcv:0.132,net:0.157},
+{m:'Apr',dep:5719,buy:0.065,sell:0.195,out:0.020,rcv:0,net:-0.150},
+{m:'May',dep:5877,buy:0.056,sell:0.100,out:0.015,rcv:0,net:-0.059},
+{m:'Jun',dep:5719,buy:0.053,sell:0.012,out:0.028,rcv:0.101,net:0.115},
+{m:'Jul',dep:5719,buy:0.050,sell:0.164,out:0,rcv:0,net:-0.114},
+{m:'Aug',dep:11968,buy:0.104,sell:0.077,out:0.020,rcv:0.007,net:0.013},
+{m:'Sep',dep:30811,buy:0.273,sell:0.085,out:0.018,rcv:0.074,net:0.244},
+{m:'Oct',dep:13783,buy:0.122,sell:0.104,out:0.018,rcv:0.028,net:0.028},
+{m:'Nov',dep:11796,buy:0.127,sell:0.068,out:0.017,rcv:0.025,net:0.066},
+{m:'Dec',dep:7046,buy:0.078,sell:0.056,out:0.002,rcv:0,net:0.021}
+].map(r=>`<tr><td>${r.m}</td><td style="text-align:right;font-family:var(--font-mono)">$${r.dep.toLocaleString()}</td><td style="text-align:right;font-family:var(--font-mono);color:var(--green)">${r.buy.toFixed(3)}</td><td style="text-align:right;font-family:var(--font-mono);color:var(--red)">${r.sell.toFixed(3)}</td><td style="text-align:right;font-family:var(--font-mono)">${r.out.toFixed(3)}</td><td style="text-align:right;font-family:var(--font-mono)">${r.rcv.toFixed(3)}</td><td style="text-align:right;font-family:var(--font-mono);color:var(${r.net>=0?'--green':'--red'})">${r.net>=0?'+':''}${r.net.toFixed(3)}</td></tr>`).join('')+`<tr style="border-top:2px solid var(--border)"><td style="font-weight:500">Total</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500">$127,766</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500;color:var(--green)">1.258</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500;color:var(--red)">1.073</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500">0.199</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500">0.367</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500;color:var(--green)">+0.353</td></tr>`;
+
+// Lenora DCA
+document.getElementById('lenora-dca').innerHTML=[
+{m:'Jan',a:2500,n:25,note:'~$100/day DCA'},{m:'Feb',a:2800,n:28,note:''},{m:'Mar',a:2900,n:29,note:''},
+{m:'Apr',a:2800,n:28,note:''},{m:'May',a:0,n:0,note:'Paused'},{m:'Jun',a:2900,n:29,note:''},
+{m:'Jul',a:3300,n:33,note:''},{m:'Aug',a:5300,n:14,note:'Larger buys'},
+{m:'Sep',a:0,n:0,note:'Paused'},{m:'Oct',a:0,n:0,note:'Paused'},
+{m:'Nov',a:900,n:9,note:'Tapering'},{m:'Dec',a:500,n:5,note:'Tapering'}
+].map(r=>`<tr><td>${r.m}</td><td style="text-align:right;font-family:var(--font-mono)">${r.a?'$'+r.a.toLocaleString():'—'}</td><td style="text-align:right;font-family:var(--font-mono)">${r.n||'—'}</td><td style="color:var(--text-muted)">${r.note}</td></tr>`).join('')+`<tr style="border-top:2px solid var(--border)"><td style="font-weight:500">Total</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500;color:var(--amber)">$24,600</td><td style="text-align:right;font-family:var(--font-mono);font-weight:500">207</td><td style="color:var(--text-muted)">~41% of take-home → BTC</td></tr>`;
+
+D.tx=true;}
 
 function updR(){const a=+document.getElementById('r-sld').value;document.getElementById('r-disp').textContent=ff(a);const t=a*9;document.getElementById('r-stats').innerHTML=`<div class="stat"><div class="s-label">Tax @ 22%</div><div class="s-val" style="font-size:20px;color:var(--amber)">${ff(Math.round(a*.22))}</div></div><div class="stat"><div class="s-label">Tax @ 24%</div><div class="s-val" style="font-size:20px;color:var(--red)">${ff(Math.round(a*.24))}</div></div><div class="stat"><div class="s-label">9yr total</div><div class="s-val" style="font-size:20px;color:var(--green)">${fmt(t)}</div></div>`;}
 
