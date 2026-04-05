@@ -556,6 +556,12 @@ setTimeout(()=>{pin='';dots.forEach(d=>d.classList.remove('wrong'));document.get
 }
 
 function updDots(){dots.forEach((d,i)=>{d.classList.toggle('filled',i<pin.length);});}
+
+document.addEventListener('keydown',e=>{
+if(overlay.classList.contains('unlocked'))return;
+if(e.key>='0'&&e.key<='9'&&pin.length<4){pin+=e.key;updDots();if(pin.length===4)setTimeout(()=>checkPin(),200);}
+else if(e.key==='Backspace'&&pin.length>0){pin=pin.slice(0,-1);updDots();}
+});
 })();
 </script>
 
