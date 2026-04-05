@@ -161,8 +161,40 @@ tr:hover td{background:var(--bg-inset)}
   .stat .s-val{font-size:20px}
   .nav-btn{padding:9px 10px;font-size:10px}
 }
+/* ═══ PIN LOCK SCREEN ═══ */
+#pin-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .4s,visibility .4s}
+#pin-overlay.unlocked{opacity:0;visibility:hidden;pointer-events:none}
+.pin-wrap{text-align:center;padding:20px}
+.pin-title{font-family:var(--font-display);font-size:22px;font-weight:500;color:var(--text);margin-bottom:6px}
+.pin-sub{font-size:13px;color:var(--text-muted);margin-bottom:36px}
+.pin-dots{display:flex;justify-content:center;gap:16px;margin-bottom:36px}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--border-strong);background:transparent;transition:all .2s}
+.pin-dot.filled{background:var(--green);border-color:var(--green)}
+.pin-dot.wrong{background:var(--red);border-color:var(--red)}
+.pin-keypad{display:grid;grid-template-columns:repeat(3,72px);gap:12px;justify-content:center;margin-bottom:16px}
+.pin-key{width:72px;height:72px;border-radius:50%;border:.5px solid var(--border);background:var(--bg-card);font-family:var(--font-display);font-size:22px;font-weight:400;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .12s,transform .1s;-webkit-tap-highlight-color:transparent;user-select:none}
+.pin-key:active{background:var(--bg-inset);transform:scale(.94)}
+.pin-key.fn{font-size:13px;font-family:var(--font-body);color:var(--text-muted);border-color:transparent;background:transparent}
+.pin-key.fn:active{background:var(--bg-inset)}
+.pin-msg{font-size:12px;color:var(--text-muted);min-height:18px}
+@keyframes pin-shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.pin-shake{animation:pin-shake .4s ease}
+#app-content.locked{filter:blur(12px);pointer-events:none;user-select:none}
+@media(max-width:390px){.pin-keypad{grid-template-columns:repeat(3,64px);gap:10px}.pin-key{width:64px;height:64px;font-size:20px}}
 </style></head><body>
 
+<!-- PIN LOCK OVERLAY -->
+<div id="pin-overlay">
+<div class="pin-wrap">
+<div class="pin-title">Warta Household</div>
+<div class="pin-sub">Enter PIN to continue</div>
+<div class="pin-dots" id="pin-dots"><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div></div>
+<div class="pin-keypad" id="pin-keypad"></div>
+<div class="pin-msg" id="pin-msg"></div>
+</div>
+</div>
+
+<div id="app-content" class="locked">
 <div class="header"><div class="header-inner"><div><h1>Warta Household</h1><div class="sub">Financial overview · v8.1</div></div><div class="header-meta"><div class="live">April 2026</div><div>NW $1.86M</div><div>BTC 7.931</div></div></div></div>
 
 <div class="nav"><div class="nav-inner">
@@ -479,7 +511,53 @@ tr:hover td{background:var(--bg-inset)}
 </div>
 
 </div>
+</div><!-- end #app-content -->
 <div class="footer">Warta Household v8.1 · Data: Mar 31, 2026 (Empower) · NW $1.86M · Not financial advice</div>
+
+<script>
+// ═══ PIN LOCK ═══
+(function(){
+const HASH='ef13ebc3a57a1b51c17b45fcfef8eef761deab8371cc9e4eca14962d5763123d';
+const overlay=document.getElementById('pin-overlay');
+const dots=document.querySelectorAll('#pin-dots .pin-dot');
+const msg=document.getElementById('pin-msg');
+const pad=document.getElementById('pin-keypad');
+const app=document.getElementById('app-content');
+let pin='';
+
+[1,2,3,4,5,6,7,8,9,'','0','⌫'].forEach(k=>{
+if(k===''){pad.innerHTML+='<div></div>';return;}
+const b=document.createElement('button');
+b.className=k==='⌫'?'pin-key fn':'pin-key';
+b.textContent=k;
+b.onclick=()=>{
+if(k==='⌫'){if(pin.length>0){pin=pin.slice(0,-1);updDots();}return;}
+if(pin.length>=4)return;
+pin+=k;updDots();
+if(pin.length===4){setTimeout(()=>checkPin(),200);}
+};
+pad.appendChild(b);
+});
+
+async function sha256(s){const d=new TextEncoder().encode(s);const h=await crypto.subtle.digest('SHA-256',d);return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('');}
+
+async function checkPin(){
+const h=await sha256(pin);
+if(h===HASH){
+dots.forEach(d=>d.style.background='var(--green)');
+msg.textContent='';
+setTimeout(()=>{overlay.classList.add('unlocked');app.classList.remove('locked');},300);
+}else{
+dots.forEach(d=>{d.classList.remove('filled');d.classList.add('wrong');});
+document.getElementById('pin-dots').classList.add('pin-shake');
+msg.textContent='Incorrect PIN';msg.style.color='var(--red)';
+setTimeout(()=>{pin='';dots.forEach(d=>d.classList.remove('wrong'));document.getElementById('pin-dots').classList.remove('pin-shake');updDots();msg.textContent='';},800);
+}
+}
+
+function updDots(){dots.forEach((d,i)=>{d.classList.toggle('filled',i<pin.length);});}
+})();
+</script>
 
 <script>
 document.querySelectorAll('.nav-btn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active');setTimeout(()=>IT[b.dataset.tab]?.(),50);});});
