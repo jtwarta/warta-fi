@@ -199,7 +199,7 @@ tr:hover td{background:var(--bg-inset)}
 </div>
 
 <div id="app-content" class="locked">
-<div class="header"><div class="header-inner"><div><h1>Warta Household</h1><div class="sub">Financial overview · v8.1</div></div><div class="header-meta"><div class="live">April 2026</div><div>NW $1.86M</div><div>BTC 7.931</div></div></div></div>
+<div class="header"><div class="header-inner"><div><h1>Warta Household</h1><div class="sub">Financial overview · v8.11</div></div><div class="header-meta"><div class="live">June 2026</div><div>NW $1.98M</div><div>BTC 7.93</div></div></div></div>
 
 <div class="nav"><div class="nav-inner">
 <button class="nav-btn active" data-tab="overview">Portfolio</button>
@@ -498,7 +498,7 @@ tr:hover td{background:var(--bg-inset)}
 <div class="sec"><span class="sec-text" style="color:var(--amber)">Execute 2026</span></div><div id="a-year"></div>
 <div class="sec"><span class="sec-text" style="color:var(--blue)">At separation</span></div><div id="a-sep"></div>
 <div class="summary"><h3>Status assessment</h3>
-<p><strong style="color:var(--text)">$1.86M net worth at 36.</strong> $1.52M investable, 21 accounts, 7 custodians. Trajectory: $2.5-3M+ by 2035. Roth pipeline ~$52K/yr. Saving $97.9K/yr (24.3%).</p>
+<p><strong style="color:var(--text)">$1.98M net worth at 36.</strong> $1.52M investable, 21 accounts, 7 custodians. Trajectory: $2.5-3M+ by 2035. Roth pipeline ~$52K/yr. Saving $97.9K/yr (24.3%).</p>
 <p style="margin-top:10px">Remaining gaps are <strong style="color:var(--red)">protective, not structural</strong>: life insurance, LTD, estate planning, umbrella, e-fund rebuild.</p>
 </div>
 </div>
@@ -716,7 +716,7 @@ document.getElementById('bene-list').innerHTML=[
 {n:'Jon: Strike',v:'$49K',s:0},{n:'Lenora: Strike',v:'$230K',s:0},{n:'Jon: Cold Storage',v:'$180K',s:0},{n:'Jon: Pension',v:'DB plan',s:0}
 ].map(b=>`<div class="bene-row"><div class="bene-icon">${b.s?'✅':'⬜'}</div><div class="bene-name">${b.n}</div><div class="bene-val">${b.v}</div></div>`).join('');D.rk=true;}
 
-function updB(){const p=+document.getElementById('b-sld').value;document.getElementById('b-disp').textContent=ff(p);const v=7.931*p,nB=1403870,nw=nB+v,d=nw-1862000;document.getElementById('b-stats').innerHTML=`<div class="stat"><div class="s-label">BTC value (7.931)</div><div class="s-val" style="font-size:20px;color:var(--amber)">${fmt(Math.round(v))}</div></div><div class="stat"><div class="s-label">Net worth</div><div class="s-val" style="font-size:20px;color:var(--green)">${fmt(Math.round(nw))}</div></div><div class="stat"><div class="s-label">Δ from current</div><div class="s-val" style="font-size:20px;color:var(${d>=0?'--green':'--red'})">${d>=0?'+':''}${fmt(Math.round(d))}</div></div>`;}
+function updB(){const p=+document.getElementById('b-sld').value;document.getElementById('b-disp').textContent=ff(p);const v=7.931*p,nB=1403870,nw=nB+v,d=nw-1976000;document.getElementById('b-stats').innerHTML=`<div class="stat"><div class="s-label">BTC value (7.931)</div><div class="s-val" style="font-size:20px;color:var(--amber)">${fmt(Math.round(v))}</div></div><div class="stat"><div class="s-label">Net worth</div><div class="s-val" style="font-size:20px;color:var(--green)">${fmt(Math.round(nw))}</div></div><div class="stat"><div class="s-label">Δ from current</div><div class="s-val" style="font-size:20px;color:var(${d>=0?'--green':'--red'})">${d>=0?'+':''}${fmt(Math.round(d))}</div></div>`;}
 
 function initActions(){if(D.ac)return;const mk=(items,cls)=>items.map(i=>`<div class="alrt ${cls}"><div><div class="at">${i.t}</div><div class="ad">${i.d}</div></div></div>`).join('');
 document.getElementById('a-done').innerHTML=mk([
@@ -740,7 +740,7 @@ document.getElementById('a-now').innerHTML=mk([
 {t:'Estate planning',d:'Trust, wills, POA, guardians. $2.5-4K. Cold BTC key plan.'},
 {t:'MetLife beneficiary — both',d:'mykp.kp.org or 888-420-1661 prompt 5.'},
 {t:'Pay Capital One $27.4K',d:'0% expires Sep 2026. 5 months left.'},
-{t:'Finish 2025 tax return',d:'Blocking on Ignition poker loss history. All other docs uploaded to TurboTax.'}
+{t:'⚠️ Celsius loss — CPA review',d:'~1.515 BTC / ~$6,698 unclaimed loss. Likely TY2024 event; possible 1040-X amendment. Reportable figure unsettled (loan + mixed distribution).'}
 ],'c');
 document.getElementById('a-year').innerHTML=mk([
 {t:'LTD 60% — Jon',d:'At open enrollment. After-tax premiums.'},
